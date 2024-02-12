@@ -1,0 +1,72 @@
+provider:
+  # There is a configuration file called
+  #
+  #   provider-gcp-hpe-org.yaml
+  #
+  # In this same directory that contains the organization settings for
+  # all HPE GCP based vTDS systems. Use that to set up the
+  # 'organization' and 'project' settings. Use this file to set up the
+  # rest of the POC configuration.
+  organization: {}
+  project: {}
+  blade_interconnects:
+    test-interconnect:
+      # A blade interconnect for testing interconnect inheritance
+      parent_class: base-interconnect
+      pure_base_class: false
+      network_name: "test-interconnect"
+      description: |
+        A blade interconnect based on 'base interconnect' to facilitate testing
+        of blade interconnect inheritance.
+      routes: []
+      firewall:
+        ingress_rules:
+          description: "Test Network Firewall Default Ingress"
+          type:
+            base_network_ingress:
+              name: "test-network-default-ingress"
+        egress_rules:
+          description: "Test Network Firewall Default Egress"
+          type:
+            base_network_egress:
+              name: "test-network-default-egress"
+  virtual_blades:
+    # Test basic inheritance
+    test-blade-type-1:
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "test-interconnect"
+        ip_addrs:
+        - 10.255.1.1
+        - 10.255.1.2
+        - 10.255.1.3
+        - 10.255.1.4
+        - 10.255.1.5
+        - 10.255.1.6
+        - 10.255.1.7
+        - 10.255.1.8
+        - 10.255.1.9
+        - 10.255.1.10
+      count: 3
+      name_prefix: "test-blade-1"
+      hostname: "blade-1"
+    # Test inheritance with two levels of ancestry
+    test-blade-type-2:
+      parent_class: test-blade-type-1
+      pure_base_class: false
+      blade_interconnect:
+        ip_addrs:
+        - 10.255.2.1
+        - 10.255.2.2
+        - 10.255.2.3
+        - 10.255.2.4
+        - 10.255.2.5
+        - 10.255.2.6
+        - 10.255.2.7
+        - 10.255.2.8
+        - 10.255.2.9
+        - 10.255.2.10
+      count: 1
+      name_prefix: "test-blade-2"
+      hostname: "blade-2"
