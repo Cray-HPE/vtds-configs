@@ -39,6 +39,28 @@ provider:
                   - "22"
             deny: []
             log_config: null
+          internal_vxlan:
+            name: "internal-vxlan"
+            description: "allow VxLAN related traffic among GCP compute instances"
+            disabled: false
+            priority: 100
+            destination_ranges: null
+            source_ranges:
+              - "10.255.0.0/16"
+            source_tags: null
+            source_service_accounts: null
+            target_tags: null
+            target_service_accounts: null
+            allow:
+              - protocol: udp
+                ports:
+                  - "8472"
+                  - "4789"
+              - protocol: tcp
+                ports:
+                  - "3389"
+            deny: []
+            log_config: null
                 
   virtual_blades:
     # Test basic inheritance
