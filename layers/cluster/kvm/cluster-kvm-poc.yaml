@@ -1,6 +1,6 @@
 # Cluster layer for a simple Ubuntu / KVM POC vTDS
 cluster:
-  networks: {}
+  networks:
     test_network:
       network_name: testnet
       tunnel_name: testnet
