@@ -19,17 +19,6 @@ provider:
         A blade interconnect based on 'base interconnect' to facilitate testing
         of blade interconnect inheritance.
       routes: []
-      firewall:
-        ingress_rules:
-          description: "Test Network Firewall Default Ingress"
-          type:
-            base_network_ingress:
-              name: "test-network-default-ingress"
-        egress_rules:
-          description: "Test Network Firewall Default Egress"
-          type:
-            base_network_egress:
-              name: "test-network-default-egress"
   virtual_blades:
     # Test basic inheritance
     test-blade-type-1:
