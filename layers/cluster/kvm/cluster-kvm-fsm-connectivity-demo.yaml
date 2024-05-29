@@ -1,0 +1,166 @@
+cluster:
+  networks:
+    scs_network:
+      network_name: scsnet
+      tunnel_name: scsnet
+      bridge_bridge: br-scsnet
+      tunnel_id: 10
+      blade_interconect: demo-interconnect
+      connected_blade_classes:
+        - scs_node
+        - non_scs_node
+      l3_configs:
+        ipv4:
+          address_family: AF_INET
+          cidr: 10.1.1.0/24
+          gateway: 10.1.1.1
+          name_servers:
+            - 10.1.1.1
+          dhcp:
+            enabled: true
+            dynamic_range:
+              start: 10.1.1.10
+              end: 10.1.1.254
+            blade_host:
+              blade_ip: 10.1.1.1
+              blade_class: scs-blade
+              blade_instance: 0
+    fsm_network:
+      network_name: fsmnet
+      tunnel_name: fsmnet
+      bridge_bridge: br-fsmnet
+      tunnel_id: 10
+      blade_interconect: demo-interconnect
+      connected_blade_classes:
+        - fsm_node
+        - non_fsm_node
+      l3_configs:
+        ipv4:
+          address_family: AF_INET
+          cidr: 10.2.1.0/24
+          gateway: 10.2.1.1
+          name_servers:
+            - 10.2.1.1
+          dhcp:
+            enabled: true
+            dynamic_range:
+              start: 10.2.1.10
+              end: 10.2.1.254
+            blade_host:
+              blade_ip: 10.2.1.1
+              blade_class: fsm-blade
+              blade_instance: 0
+    cross_network:
+      network_name: crossnet
+      tunnel_name: crossnet
+      bridge_bridge: br-crossnet
+      tunnel_id: 10
+      blade_interconect: demo-interconnect
+      connected_blade_classes:
+        - fsm_node
+        - scs_node
+      l3_configs:
+        ipv4:
+          address_family: AF_INET
+          cidr: 10.3.1.0/24
+          gateway: null
+          name_servers: null
+          dhcp:
+            enabled: false
+  node_classes:
+    scs_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 1
+      host_blade:
+        blade_class: scs-blade
+        instance_capacity: 1
+      node_naming:
+        mode: emumerated
+        node_names:
+          - scs
+        base_name: scs
+      network_interfaces:
+        scs_network:
+          cluster_network: scsnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: dynamic
+              addresses: null
+        cross_network:
+          cluster_network: crossnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: static
+              addresses:
+                - 10.3.1.1
+                - 10.3.1.2
+                - 10.3.1.3
+    fsm_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 1
+      host_blade:
+        blade_class: fsm-blade
+        instance_capacity: 1
+      node_naming:
+        mode: emumerated
+        node_names:
+          - fsm
+        base_name: fsm
+      network_interfaces:
+        fsm_network:
+          cluster_network: fsmnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: dynamic
+              addresses: null
+        cross_network:
+          cluster_network: crossnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: static
+              addresses:
+                - 10.3.1.4
+                - 10.3.1.5
+                - 10.3.1.6
+    non_scs_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 2
+      host_blade:
+        blade_class: non-scs-blade
+        instance_capacity: 2
+      node_naming:
+        mode: numbered
+        base_name: non-scs
+      network_interfaces:
+        scs_network:
+          cluster_network: scsnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: dynamic
+              addresses: null
+    non_fsm_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 2
+      host_blade:
+        blade_class: non-fsm-blade
+        instance_capacity: 2
+      node_naming:
+        mode: numbered
+        base_name: non-fsm
+      network_interfaces:
+        test_network:
+          cluster_network: testnet
+          addressing:
+            ipv4:
+              address_family: AF_INET
+              mode: dynamic
+              addresses: null

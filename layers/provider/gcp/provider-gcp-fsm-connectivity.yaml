@@ -1,0 +1,119 @@
+provider:
+  # There is a configuration file called
+  #
+  #   provider-gcp-hpe-org.yaml
+  #
+  # In this same directory that contains the organization settings for
+  # all HPE GCP based vTDS systems. Use that to set up the
+  # 'organization' and 'project' settings. Use this file to set up the
+  # rest of the POC configuration.
+  organization: {}
+  project: {}
+  blade_interconnects:
+    demo-interconnect:
+      # A blade interconnect for testing interconnect inheritance
+      parent_class: base-interconnect
+      pure_base_class: false
+      network_name: "demo-interconnect"
+      description: |
+        A blade interconnect based on 'base interconnect' that provides
+        the underlay network for the FSM to SCP connectivity demo.
+      routes: []
+      firewall:
+        ingress_rules:
+          internal_ssh_ingress:
+            name: "internal-ssh-ingress"
+            description: |
+              allow SSH ingress from internal GCP compute instances
+            disabled: false
+            priority: 100
+            destination_ranges: null
+            source_ranges:
+              - "10.255.0.0/16"
+            source_tags: null
+            source_service_accounts: null
+            target_tags: null
+            target_service_accounts: null
+            allow:
+              - protocol: tcp
+                ports:
+                  - "22"
+            deny: []
+            log_config: null
+          internal_vxlan:
+            name: "internal-vxlan"
+            description: |
+              allow VxLAN related traffic among GCP compute instances
+            disabled: false
+            priority: 100
+            destination_ranges: null
+            source_ranges:
+              - "10.255.0.0/16"
+            source_tags: null
+            source_service_accounts: null
+            target_tags: null
+            target_service_accounts: null
+            allow:
+              - protocol: udp
+                ports:
+                  - "8472"
+                  - "4789"
+              - protocol: tcp
+                ports:
+                  - "3389"
+            deny: []
+            log_config: null
+                
+  virtual_blades:
+    # Non-SCS node(s) in the network with SCS
+    non-scs-blade:
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "demo-interconnect"
+        ip_addrs:
+        - 10.255.1.1
+        - 10.255.1.2
+        - 10.255.1.3
+      count: 1
+      name_prefix: "non-scp-blade"
+      hostname: "non-scp-blade"
+    # Non-FSM node(s)in the network with the FSM
+    non-fsm-blade:
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "demo-interconnect"
+        ip_addrs:
+        - 10.255.2.1
+        - 10.255.2.2
+        - 10.255.2.3
+      count: 1
+      name_prefix: "non-fsm-blade"
+      hostname: "non-fsm-blade"
+    # SCS node(s)
+    scs-blade:
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "demo-interconnect"
+        ip_addrs:
+        - 10.255.3.1
+        - 10.255.3.2
+        - 10.255.3.3
+      count: 1
+      name_prefix: "scs-blade"
+      hostname: "scp-blade"
+    # FSM node(s)
+    fsm-blade:
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "demo-interconnect"
+        ip_addrs:
+        - 10.255.4.1
+        - 10.255.4.2
+        - 10.255.4.3
+      count: 1
+      name_prefix: "fsm-blade"
+      hostname: "fsm-blade"
