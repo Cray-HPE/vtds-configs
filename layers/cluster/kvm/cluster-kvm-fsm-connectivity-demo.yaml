@@ -5,7 +5,7 @@ cluster:
       tunnel_name: scsnet
       bridge_bridge: br-scsnet
       tunnel_id: 10
-      blade_interconect: demo-interconnect
+      blade_interconnect: demo-interconnect
       connected_blade_classes:
         - scs_node
         - non_scs_node
@@ -30,7 +30,7 @@ cluster:
       tunnel_name: fsmnet
       bridge_bridge: br-fsmnet
       tunnel_id: 10
-      blade_interconect: demo-interconnect
+      blade_interconnect: demo-interconnect
       connected_blade_classes:
         - fsm_node
         - non_fsm_node
@@ -55,7 +55,7 @@ cluster:
       tunnel_name: crossnet
       bridge_bridge: br-crossnet
       tunnel_id: 10
-      blade_interconect: demo-interconnect
+      blade_interconnect: demo-interconnect
       connected_blade_classes:
         - fsm_node
         - scs_node

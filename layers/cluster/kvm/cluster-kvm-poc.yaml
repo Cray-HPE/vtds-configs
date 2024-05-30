@@ -6,7 +6,7 @@ cluster:
       tunnel_name: testnet
       bridge_bridge: br-testnet
       tunnel_id: 10
-      blade_interconect: test-interconnect
+      blade_interconnect: test-interconnect
       connected_blade_classes:
         - test-blade-type-1
         - test-blade-type-2
