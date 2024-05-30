@@ -7,8 +7,8 @@ cluster:
       tunnel_id: 10
       blade_interconnect: demo-interconnect
       connected_blade_classes:
-        - scs_node
-        - non_scs_node
+        - scs-blade
+        - non-scs-blade
       l3_configs:
         ipv4:
           address_family: AF_INET
@@ -29,11 +29,11 @@ cluster:
       network_name: fsmnet
       tunnel_name: fsmnet
       bridge_bridge: br-fsmnet
-      tunnel_id: 10
+      tunnel_id: 20
       blade_interconnect: demo-interconnect
       connected_blade_classes:
-        - fsm_node
-        - non_fsm_node
+        - fsm-blade
+        - non-fsm-blade
       l3_configs:
         ipv4:
           address_family: AF_INET
@@ -54,11 +54,11 @@ cluster:
       network_name: crossnet
       tunnel_name: crossnet
       bridge_bridge: br-crossnet
-      tunnel_id: 10
+      tunnel_id: 30
       blade_interconnect: demo-interconnect
       connected_blade_classes:
-        - fsm_node
-        - scs_node
+        - fsm-blade
+        - scs-blade
       l3_configs:
         ipv4:
           address_family: AF_INET

@@ -1,0 +1,122 @@
+# Core-configuration for the vTDS system designed to demonstrate FSM /
+# SCS connectivity over a virtual network connection between two
+# otherwise unconnected networks. The resulting system looks like
+# this:
+#
+#   - Two simulated data center networks:
+#
+#     + one with an SCS node and a couple of locally interconnected
+#       non-SCS nodes
+#     + one with an FSM node  and a couple of locally interconnected
+#       non-FSM nodes
+#
+#   - a single virtual network (vXLAN) connection between the FSM
+#     node and the SCS node that
+#
+#     + provides FSM to SCS connectivity
+#     + does not provide any connectivity between non-SCS nodes
+#       and non-FSM nodes outside of their respective networks
+#
+# This is built using
+#
+#   - a GCP provider layer configured to create
+#
+#     + Virtual Blades running Ubuntu 24.04
+#     + a GCP native network Blade Interconnect providng
+#       the Network underlay for all of the cluster networks
+#
+#   - a Platform layer designed to run on Ubuntu 24.04 based
+#     Virtual Blades
+#
+#   - a Cluster layer
+#     + composed of
+#       o Virtual Nodes running Ubuntu hosted under `kvm` on the
+#         virtual blades
+#       o Virtual Networks implemented using `VxLAN`
+#     + Configured to
+#       o provide the nodes described in the system description
+#       o interconnect the nodes as described in the system
+#         description
+#
+#   - an application layer that deploys
+#     + a simple FSM mock up onto the FSM nodes
+#     + a simple SCS mock up onto SCS nodes
+#
+# The FSM and SCS mock-ups have REST APIs that permit them to
+# to make simple representative requests of each other.
+core:
+  layers:
+    core:
+      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+      package: vtds-core
+      module: vtds_core
+      version: null
+    provider:
+      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+      package: vtds-provider-gcp
+      module: vtds_provider_gcp
+      version: null
+    platform:
+      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+      package: vtds-platform-ubuntu
+      module: vtds_platform_ubuntu
+      version: null
+    cluster:
+      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+      package: vtds-cluster-kvm
+      module: vtds_cluster_kvm
+      version: null
+    application:
+      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+      package: vtds-application-mock
+      module: vtds_application_mock
+      version: null
+  configurations:
+  - type: git
+    metadata:
+      # This brings in the HPE specific settings needed to build an HPE
+      # project on GCP.
+      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      version: main
+      path: layers/provider/gcp/provider-gcp-hpe-org.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the provider layer.
+      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      version: main
+      path: layers/provider/gcp/provider-gcp-fsm-connectivity.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the platform layer.
+      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      version: main
+      path: layers/platform/ubuntu/platform-ubuntu-fsm-connectivity.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the cluster layer.
+      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      version: main
+      path: layers/cluster/kvm/cluster-kvm-fsm-connectivity.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the application layer.
+      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      version: main
+      path: layers/application/ubuntu/application-ubuntu-poc.yaml
+  - type: command-line
+    # Bring in any configuration files / sources listed on the command
+    # line and merge them on top of what has been listed here. This
+    # overlay will override matching settings in the above sources.
+    metadata: {}
+  - type: core-config
+    # If there is anything outside the 'core' section of the Core
+    # Configuration apply it last to override anything seen up to this
+    # point.
+    metadata: {}
+provider:
+  project:
+    base_name: fsm-demo
