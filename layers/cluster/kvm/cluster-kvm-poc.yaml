@@ -3,9 +3,13 @@ cluster:
   networks:
     test_network:
       network_name: testnet
-      tunnel_name: testnet
-      bridge_bridge: br-testnet
       tunnel_id: 10
+      devices:
+        bridge: br-testnet
+        tunnel: testnet
+        local:
+          peer: bl-testnet-p
+          interface: bl-testnet
       blade_interconnect: test-interconnect
       connected_blade_classes:
         - test-blade-type-1

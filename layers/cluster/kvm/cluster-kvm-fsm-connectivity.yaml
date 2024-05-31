@@ -2,9 +2,13 @@ cluster:
   networks:
     scs_network:
       network_name: scsnet
-      tunnel_name: scsnet
-      bridge_bridge: br-scsnet
       tunnel_id: 10
+      devices:
+        bridge: br-scsnet
+        tunnel: scsnet
+        local:
+          peer: bl-scsnet-p
+          interface: bl-scsnet
       blade_interconnect: demo-interconnect
       connected_blade_classes:
         - scs-blade
@@ -27,9 +31,13 @@ cluster:
               blade_instance: 0
     fsm_network:
       network_name: fsmnet
-      tunnel_name: fsmnet
-      bridge_bridge: br-fsmnet
       tunnel_id: 20
+      devices:
+        bridge: br-fsmnet
+        tunnel: fsmnet
+        local:
+          peer: bl-fsmnet-p
+          interface: bl-fsmnet
       blade_interconnect: demo-interconnect
       connected_blade_classes:
         - fsm-blade
@@ -52,9 +60,11 @@ cluster:
               blade_instance: 0
     cross_network:
       network_name: crossnet
-      tunnel_name: crossnet
-      bridge_bridge: br-crossnet
       tunnel_id: 30
+      devices:
+        bridge: br-crossnet
+        tunnel: crossnet
+        local: None
       blade_interconnect: demo-interconnect
       connected_blade_classes:
         - fsm-blade
