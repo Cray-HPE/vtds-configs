@@ -17,19 +17,17 @@ cluster:
       l3_configs:
         ipv4:
           address_family: AF_INET
-          cidr: 10.255.0.0/16
-          gateway: 10.255.0.1
+          cidr: 10.1.1.0/24
+          gateway: 10.1.1.1
           name_servers:
             - 10.1.1.1
-            - 10.1.1.2
-            - 10.1.1.3
           dhcp:
             enabled: true
             dynamic_range:
-              start: 10.255.1.0
-              end: 10.255.255.254
+              start: 10.1.1.10
+              end: 10.1.1.254
             blade_host:
-              blade_ip: 10.255.0.1
+              blade_ip: 10.1.1.1
               blade_class: test-blade-type-1
               blade_instance: 0
   node_classes:

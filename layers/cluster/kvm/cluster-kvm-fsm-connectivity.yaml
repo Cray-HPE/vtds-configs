@@ -76,7 +76,14 @@ cluster:
           gateway: null
           name_servers: null
           dhcp:
-            enabled: false
+            enabled: true
+            dynamic_range:
+              start: 10.3.1.2
+              end: 10.3.1.254
+            blade_host:
+              blade_ip: 10.3.1.1
+              blade_class: scs-blade
+              blade_instance: 0
   node_classes:
     scs_node:
       pure_base_class: false
@@ -103,11 +110,8 @@ cluster:
           addressing:
             ipv4:
               address_family: AF_INET
-              mode: static
-              addresses:
-                - 10.3.1.1
-                - 10.3.1.2
-                - 10.3.1.3
+              mode: dynamic
+              addresses: null
     fsm_node:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
