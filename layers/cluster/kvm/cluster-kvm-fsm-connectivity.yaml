@@ -22,9 +22,9 @@ cluster:
             - 10.1.1.1
           dhcp:
             enabled: true
-            dynamic_range:
-              start: 10.1.1.10
-              end: 10.1.1.254
+            pools::
+              - start: 10.1.1.10
+                end: 10.1.1.254
             blade_host:
               blade_ip: 10.1.1.1
               blade_class: scs-blade
@@ -51,9 +51,9 @@ cluster:
             - 10.2.1.1
           dhcp:
             enabled: true
-            dynamic_range:
-              start: 10.2.1.10
-              end: 10.2.1.254
+            pools::
+              - start: 10.2.1.10
+                end: 10.2.1.254
             blade_host:
               blade_ip: 10.2.1.1
               blade_class: fsm-blade
@@ -77,9 +77,9 @@ cluster:
           name_servers: null
           dhcp:
             enabled: true
-            dynamic_range:
-              start: 10.3.1.2
-              end: 10.3.1.254
+            pools:
+              - start: 10.3.1.2
+                end: 10.3.1.254
             blade_host:
               blade_ip: 10.3.1.1
               blade_class: scs-blade
@@ -100,18 +100,16 @@ cluster:
       network_interfaces:
         scs_network:
           cluster_network: scsnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
         cross_network:
           cluster_network: crossnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
     fsm_node:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
@@ -127,21 +125,16 @@ cluster:
       network_interfaces:
         fsm_network:
           cluster_network: fsmnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
         cross_network:
           cluster_network: crossnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
-              mode: static
-              addresses:
-                - 10.3.1.4
-                - 10.3.1.5
-                - 10.3.1.6
+              mode: dynamic
     non_scs_node:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
@@ -155,11 +148,10 @@ cluster:
       network_interfaces:
         scs_network:
           cluster_network: scsnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
     non_fsm_node:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
@@ -173,8 +165,7 @@ cluster:
       network_interfaces:
         test_network:
           cluster_network: testnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null

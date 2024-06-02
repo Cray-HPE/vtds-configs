@@ -23,9 +23,9 @@ cluster:
             - 10.1.1.1
           dhcp:
             enabled: true
-            dynamic_range:
-              start: 10.1.1.10
-              end: 10.1.1.254
+            pools:
+              - start: 10.1.1.10
+                end: 10.1.1.254
             blade_host:
               blade_ip: 10.1.1.1
               blade_class: test-blade-type-1
@@ -43,11 +43,10 @@ cluster:
       network_interfaces:
         test_network:
           cluster_network: testnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
     demo_2:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
@@ -60,8 +59,7 @@ cluster:
       network_interfaces:
         test_network:
           cluster_network: testnet
-          addressing:
+          addr_info:
             ipv4:
               address_family: AF_INET
               mode: dynamic
-              addresses: null
