@@ -10,9 +10,6 @@ cluster:
           peer: bl-scsnet-p
           interface: bl-scsnet
       blade_interconnect: demo-interconnect
-      connected_blade_classes:
-        - scs-blade
-        - non-scs-blade
       l3_configs:
         ipv4:
           address_family: AF_INET
@@ -39,9 +36,6 @@ cluster:
           peer: bl-fsmnet-p
           interface: bl-fsmnet
       blade_interconnect: demo-interconnect
-      connected_blade_classes:
-        - fsm-blade
-        - non-fsm-blade
       l3_configs:
         ipv4:
           address_family: AF_INET
@@ -66,9 +60,6 @@ cluster:
         tunnel: crossnet
         local: None
       blade_interconnect: demo-interconnect
-      connected_blade_classes:
-        - fsm-blade
-        - scs-blade
       l3_configs:
         ipv4:
           address_family: AF_INET

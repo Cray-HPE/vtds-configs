@@ -11,9 +11,6 @@ cluster:
           peer: bl-testnet-p
           interface: bl-testnet
       blade_interconnect: test-interconnect
-      connected_blade_classes:
-        - test-blade-type-1
-        - test-blade-type-2
       l3_configs:
         ipv4:
           address_family: AF_INET
