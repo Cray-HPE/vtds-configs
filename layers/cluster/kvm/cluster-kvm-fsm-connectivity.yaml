@@ -12,7 +12,7 @@ cluster:
       blade_interconnect: demo-interconnect
       l3_configs:
         ipv4:
-          address_family: AF_INET
+          family: AF_INET
           cidr: 10.1.1.0/24
           gateway: 10.1.1.1
           name_servers:
@@ -38,7 +38,7 @@ cluster:
       blade_interconnect: demo-interconnect
       l3_configs:
         ipv4:
-          address_family: AF_INET
+          family: AF_INET
           cidr: 10.2.1.0/24
           gateway: 10.2.1.1
           name_servers:
@@ -62,7 +62,7 @@ cluster:
       blade_interconnect: demo-interconnect
       l3_configs:
         ipv4:
-          address_family: AF_INET
+          family: AF_INET
           cidr: 10.3.1.0/24
           gateway: null
           name_servers: null
@@ -93,13 +93,13 @@ cluster:
           cluster_network: scsnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
         cross_network:
           cluster_network: crossnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
     fsm_node:
       pure_base_class: false
@@ -118,13 +118,13 @@ cluster:
           cluster_network: fsmnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
         cross_network:
           cluster_network: crossnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
     non_scs_node:
       pure_base_class: false
@@ -141,7 +141,7 @@ cluster:
           cluster_network: scsnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
     non_fsm_node:
       pure_base_class: false
@@ -158,5 +158,5 @@ cluster:
           cluster_network: testnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic

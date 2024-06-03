@@ -13,7 +13,7 @@ cluster:
       blade_interconnect: test-interconnect
       l3_configs:
         ipv4:
-          address_family: AF_INET
+          family: AF_INET
           cidr: 10.1.1.0/24
           gateway: 10.1.1.1
           name_servers:
@@ -42,7 +42,7 @@ cluster:
           cluster_network: testnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
     demo_2:
       pure_base_class: false
@@ -58,5 +58,5 @@ cluster:
           cluster_network: testnet
           addr_info:
             ipv4:
-              address_family: AF_INET
+              family: AF_INET
               mode: dynamic
