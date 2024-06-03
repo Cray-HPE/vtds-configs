@@ -19,7 +19,7 @@ cluster:
             - 10.1.1.1
           dhcp:
             enabled: true
-            pools::
+            pools:
               - start: 10.1.1.10
                 end: 10.1.1.254
             blade_host:
@@ -45,7 +45,7 @@ cluster:
             - 10.2.1.1
           dhcp:
             enabled: true
-            pools::
+            pools:
               - start: 10.2.1.10
                 end: 10.2.1.254
             blade_host:
