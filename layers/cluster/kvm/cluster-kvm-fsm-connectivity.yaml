@@ -58,7 +58,9 @@ cluster:
       devices:
         bridge: br-crossnet
         tunnel: crossnet
-        local: None
+        local:
+          peer: bl-crossnet-p
+          interface: bl-crossnet
       blade_interconnect: demo-interconnect
       l3_configs:
         ipv4:
