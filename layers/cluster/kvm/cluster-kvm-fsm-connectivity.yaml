@@ -157,7 +157,7 @@ cluster:
         base_name: non-fsm
       network_interfaces:
         test_network:
-          cluster_network: testnet
+          cluster_network: fsmnet
           addr_info:
             ipv4:
               family: AF_INET
