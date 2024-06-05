@@ -85,6 +85,8 @@ cluster:
       host_blade:
         blade_class: scs-blade
         instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
       node_naming:
         mode: emumerated
         node_names:
@@ -110,6 +112,8 @@ cluster:
       host_blade:
         blade_class: fsm-blade
         instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
       node_naming:
         mode: emumerated
         node_names:
@@ -135,6 +139,8 @@ cluster:
       host_blade:
         blade_class: non-scs-blade
         instance_capacity: 2
+      virtual_machine:
+        memory_size_mib: 2048
       node_naming:
         mode: numbered
         base_name: non-scs
@@ -152,6 +158,8 @@ cluster:
       host_blade:
         blade_class: non-fsm-blade
         instance_capacity: 2
+      virtual_machine:
+        memory_size_mib: 2048
       node_naming:
         mode: numbered
         base_name: non-fsm
