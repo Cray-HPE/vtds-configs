@@ -16,7 +16,7 @@ cluster:
           cidr: 10.1.1.0/24
           gateway: 10.1.1.1
           name_servers:
-            - 10.1.1.1
+            - 169.254.169.254
           dhcp:
             enabled: true
             pools:
@@ -42,7 +42,7 @@ cluster:
           cidr: 10.2.1.0/24
           gateway: 10.2.1.1
           name_servers:
-            - 10.2.1.1
+            - 169.254.169.254
           dhcp:
             enabled: true
             pools:
@@ -81,10 +81,10 @@ cluster:
     scs_node:
       pure_base_class: false
       parent_class: ubuntu_24_04_node
-      node_count: 1
+      node_count: 2
       host_blade:
         blade_class: scs-blade
-        instance_capacity: 1
+        instance_capacity: 2
       virtual_machine:
         memory_size_mib: 2048
       node_naming:
