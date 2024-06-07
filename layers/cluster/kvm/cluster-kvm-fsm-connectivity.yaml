@@ -90,7 +90,8 @@ cluster:
       node_naming:
         mode: emumerated
         node_names:
-          - scs
+          - scs1
+          - scs2
         base_name: scs
       network_interfaces:
         scs_network:
