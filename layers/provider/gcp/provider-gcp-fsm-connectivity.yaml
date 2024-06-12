@@ -24,6 +24,7 @@ provider:
     non-scs-blade:
       parent_class: base-blade
       pure_base_class: false
+      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -37,6 +38,7 @@ provider:
     non-fsm-blade:
       parent_class: base-blade
       pure_base_class: false
+      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -50,6 +52,7 @@ provider:
     scs-blade:
       parent_class: base-blade
       pure_base_class: false
+      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -63,6 +66,7 @@ provider:
     fsm-blade:
       parent_class: base-blade
       pure_base_class: false
+      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
