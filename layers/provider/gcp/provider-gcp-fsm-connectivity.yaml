@@ -24,7 +24,9 @@ provider:
     non-scs-blade:
       parent_class: base-blade
       pure_base_class: false
-      access_config: []  # Turn off external IPs on this node
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -39,6 +41,9 @@ provider:
       parent_class: base-blade
       pure_base_class: false
       access_config: []  # Turn off external IPs on this node
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -53,6 +58,9 @@ provider:
       parent_class: base-blade
       pure_base_class: false
       access_config: []  # Turn off external IPs on this node
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
@@ -67,6 +75,10 @@ provider:
       parent_class: base-blade
       pure_base_class: false
       access_config: []  # Turn off external IPs on this node
+      access_config: []  # Turn off external IPs on this node
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#      access_config: []  # Turn off external IPs on this node
       blade_interconnect:
         subnetwork: "demo-interconnect"
         ip_addrs:
