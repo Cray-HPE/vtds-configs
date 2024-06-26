@@ -18,15 +18,18 @@ cluster:
           gateway: 10.1.1.1
           name_servers:
             - 169.254.169.254
+          connected_blades:
+            - blade_class: test-blade-type-1
+              blade_instances:
+                - 0
+              blade_ips:
+                - 10.1.1.1
+              dhcp_server_instance: 0
           dhcp:
             enabled: true
             pools:
               - start: 10.1.1.10
                 end: 10.1.1.254
-            blade_host:
-              blade_ip: 10.1.1.1
-              blade_class: test-blade-type-1
-              blade_instance: 0
   node_classes:
     demo_1:
       pure_base_class: false
