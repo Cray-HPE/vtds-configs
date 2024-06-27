@@ -18,7 +18,7 @@ cluster:
           name_servers:
             - 169.254.169.254
           connected_blades:
-            - blade_class: scs_blade
+            - blade_class: scs-blade
               blade_instances:
                 - 0
               blade_ips:
@@ -47,7 +47,7 @@ cluster:
           name_servers:
             - 169.254.169.254
           connected_blades:
-            - blade_class: fsm_blade
+            - blade_class: fsm-blade
               blade_instances:
                 - 0
               blade_ips:
@@ -75,7 +75,7 @@ cluster:
           gateway: null
           name_servers: null
           connected_blades:
-            - blade_class: scs_blade
+            - blade_class: scs-blade
               blade_instances:
                 - 0
               blade_ips:
