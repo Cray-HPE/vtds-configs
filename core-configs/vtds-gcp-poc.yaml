@@ -11,31 +11,47 @@
 # API.
 core:
   layers:
+    base:
+      package: vtds-base
+      module: vtds_base
+      source_type: pypi
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
     core:
-      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
       package: vtds-core
       module: vtds_core
-      version: null
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
     provider:
-      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
       package: vtds-provider-gcp
       module: vtds_provider_gcp
-      version: null
+      source_type: pypi
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
     platform:
-      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
       package: vtds-platform-ubuntu
       module: vtds_platform_ubuntu
-      version: null
+      source_type: pypi
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
     cluster:
-      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
       package: vtds-cluster-kvm
       module: vtds_cluster_kvm
-      version: null
+      source_type: pypi
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
     application:
-      index_url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
       package: vtds-application-ubuntu
       module: vtds_application_ubuntu
-      version: null
+      source_type: pypi
+      metadata:
+        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        version: null
   configurations:
   - type: git
     metadata:

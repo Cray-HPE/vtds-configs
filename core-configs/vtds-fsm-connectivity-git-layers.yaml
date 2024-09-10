@@ -49,44 +49,44 @@ core:
     base:
       package: vtds-base
       module: vtds_base
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-base.git"
         version: null
     core:
       package: vtds-core
       module: vtds_core
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-core.git"
         version: null
     provider:
       package: vtds-provider-gcp
       module: vtds_provider_gcp
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-provider-gcp.git"
         version: null
     platform:
       package: vtds-platform-ubuntu
       module: vtds_platform_ubuntu
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-platform-ubuntu.git"
         version: null
     cluster:
       package: vtds-cluster-kvm
       module: vtds_cluster_kvm
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-cluster-kvm.git"
         version: null
     application:
       package: vtds-application-demo
       module: vtds_application_demo
-      source_type: pypi
+      source_type: git
       metadata:
-        url: "https://artifactory.algol60.net/artifactory/csm-python-modules/simple"
+        url: "git@github.com:Cray-HPE/vtds-application-demo.git"
         version: null
   configurations:
   - type: git
