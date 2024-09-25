@@ -57,31 +57,31 @@ core:
     metadata:
       # This brings in the HPE specific settings needed to build an HPE
       # project on GCP.
-      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/provider/gcp/provider-gcp-hpe-org.yaml
   - type: git
     metadata:
       # This brings in the POC configuration for the provider layer.
-      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/provider/gcp/provider-gcp-poc.yaml
   - type: git
     metadata:
       # This brings in the POC configuration for the platform layer.
-      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/platform/ubuntu/platform-ubuntu-poc.yaml
   - type: git
     metadata:
       # This brings in the POC configuration for the cluster layer.
-      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/cluster/kvm/cluster-kvm-poc.yaml
   - type: git
     metadata:
       # This brings in the POC configuration for the application layer.
-      repo: git@github.hpe.com:eric-lund/vtds-configs.git
+      repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/application/ubuntu/application-ubuntu-poc.yaml
   - type: command-line
