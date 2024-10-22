@@ -1,0 +1,93 @@
+core:
+  layers:
+    base:
+      package: vtds-base
+      module: vtds_base
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-base.git"
+        version: null
+    core:
+      package: vtds-core
+      module: vtds_core
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-core.git"
+        version: null
+    provider:
+      package: vtds-provider-gcp
+      module: vtds_provider_gcp
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-provider-gcp.git"
+        version: null
+    platform:
+      package: vtds-platform-ubuntu
+      module: vtds_platform_ubuntu
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-platform-ubuntu.git"
+        version: null
+    cluster:
+      package: vtds-cluster-kvm
+      module: vtds_cluster_kvm
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-cluster-kvm.git"
+        version: null
+    application:
+      package: vtds-application-openchami
+      module: vtds_application_openchami
+      source_type: git
+      metadata:
+        url: "git@github.com:Cray-HPE/vtds-application-openchami.git"
+        version: null
+  configurations:
+  - type: git
+    metadata:
+      # This brings in the HPE specific settings needed to build an HPE
+      # project on GCP.
+      repo: git@github.com:Cray-HPE/vtds-configs.git
+      version: open-chami
+      path: layers/provider/gcp/provider-gcp-hpe-org.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the provider layer.
+      repo: git@github.com:Cray-HPE/vtds-configs.git
+      version: open-chami
+      path: layers/provider/gcp/provider-gcp-openChami.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the platform layer.
+      repo: git@github.com:Cray-HPE/vtds-configs.git
+      version: open-chami
+      path: layers/platform/ubuntu/platform-ubuntu-openChami.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the cluster layer.
+      repo: git@github.com:Cray-HPE/vtds-configs.git
+      version: open-chami
+      path: layers/cluster/kvm/cluster-kvm-openChami.yaml
+  - type: git
+    metadata:
+      # This brings in the FSM / SCS Connectivity Demo configuration
+      # for the application layer.
+      repo: git@github.com:Cray-HPE/vtds-configs.git
+      version: open-chami
+      path: layers/application/ubuntu/application-ubuntu-openChami.yaml
+  - type: command-line
+    # Bring in any configuration files / sources listed on the command
+    # line and merge them on top of what has been listed here. This
+    # overlay will override matching settings in the above sources.
+    metadata: {}
+  - type: core-config
+    # If there is anything outside the 'core' section of the Core
+    # Configuration apply it last to override anything seen up to this
+    # point.
+    metadata: {}
+provider:
+  project:
+    base_name: ochami

@@ -1,0 +1,50 @@
+# Cluster layer for a simple Ubuntu / KVM POC vTDS
+cluster:
+  networks:
+    primary_network:
+      network_name: primenet
+      tunnel_id: 10
+      devices:
+        bridge: br-primenet
+        tunnel: primenet
+        local:
+          peer: bl-primenet-p
+          interface: bl-primenet
+      blade_interconnect: blade-interconnect
+      l3_configs:
+        ipv4:
+          family: AF_INET
+          cidr: 10.1.1.0/24
+          gateway: 10.1.1.1
+          name_servers:
+            - 169.254.169.254
+          connected_blades:
+            - blade_class: host-blade
+              blade_instances:
+                - 0
+              blade_ips:
+                - 10.1.1.1
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.1.1.10
+                end: 10.1.1.254
+  node_classes:
+    host_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 1
+      host_blade:
+        blade_class: host-blade
+        instance_capacity: 1
+      node_naming:
+        mode: numbered
+        base_name: ochami
+      network_interfaces:
+        primary_network:
+          cluster_network: primenet
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: dynamic
