@@ -1,0 +1,166 @@
+provider:
+  # There is a configuration file called
+  #
+  #   provider-gcp-hpe-org.yaml
+  #
+  # In this same directory that contains the organization settings for
+  # all HPE GCP based vTDS systems. Use that to set up the
+  # 'organization' and 'project' settings. Use this file to set up the
+  # rest of the POC configuration.
+  organization: {}
+  project: {}
+  blade_interconnects:
+    vshasta-interconnect:
+      parent_class: base-interconnect
+      pure_base_class: false
+      network_name: "vshasta-interconnect"
+      description: |
+        A blade interconnect based on 'base interconnect' that provides
+        the underlay network for the vShasta cluster.
+      routes: []
+                
+  virtual_blades:
+    k8s-mgmt-blade:
+      parent_class: base-blade
+      pure_base_class: false
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#     access_config: []  # Turn off external IPs on this node
+      blade_interconnect:
+        subnetwork: "vshasta-interconnect"
+        ip_addrs:
+        - 10.255.1.1
+        - 10.255.1.2
+        - 10.255.1.3
+        - 10.255.1.4
+        - 10.255.1.5
+        - 10.255.1.6
+        - 10.255.1.7
+        - 10.255.1.8
+        - 10.255.1.9
+        - 10.255.1.10
+        - 10.255.1.11
+        - 10.255.1.12
+        - 10.255.1.13
+        - 10.255.1.14
+        - 10.255.1.15
+        - 10.255.1.16
+      count: 3
+      name_prefix: "k8s-mgmt-blade"
+      hostname: "k8s-mgmt-blade"
+    # Kubernetes Worker Nodes
+    k8s-work-blade:
+      parent_class: base-blade
+      pure_base_class: false
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#     access_config: []  # Turn off external IPs on this node
+      blade_interconnect:
+        subnetwork: "vshasta-interconnect"
+        ip_addrs:
+        - 10.255.2.1
+        - 10.255.2.2
+        - 10.255.2.3
+        - 10.255.2.4
+        - 10.255.2.5
+        - 10.255.2.6
+        - 10.255.2.7
+        - 10.255.2.8
+        - 10.255.2.9
+        - 10.255.2.10
+        - 10.255.2.11
+        - 10.255.2.12
+        - 10.255.2.13
+        - 10.255.2.14
+        - 10.255.2.15
+        - 10.255.2.16
+      count: 3
+      name_prefix: "k8s-work-blade"
+      hostname: "k8s-work-blade"
+    # Storage node(s)
+    storage-blade:
+      parent_class: base-blade
+      pure_base_class: false
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#     access_config: []  # Turn off external IPs on this node
+      blade_interconnect:
+        subnetwork: "vshasta-interconnect"
+        ip_addrs:
+        - 10.255.3.1
+        - 10.255.3.2
+        - 10.255.3.3
+        - 10.255.3.4
+        - 10.255.3.5
+        - 10.255.3.6
+        - 10.255.3.7
+        - 10.255.3.8
+        - 10.255.3.9
+        - 10.255.3.10
+        - 10.255.3.11
+        - 10.255.3.12
+        - 10.255.3.13
+        - 10.255.3.14
+        - 10.255.3.15
+        - 10.255.3.16
+      count: 3
+      name_prefix: "storage-blade"
+      hostname: "storage-blade"
+    # Compute node(s)
+    compute-blade:
+      parent_class: base-blade
+      pure_base_class: false
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#     access_config: []  # Turn off external IPs on this node
+      blade_interconnect:
+        subnetwork: "vshasta-interconnect"
+        ip_addrs:
+        - 10.255.4.1
+        - 10.255.4.2
+        - 10.255.4.3
+        - 10.255.4.4
+        - 10.255.4.5
+        - 10.255.4.6
+        - 10.255.4.7
+        - 10.255.4.8
+        - 10.255.4.9
+        - 10.255.4.10
+        - 10.255.4.11
+        - 10.255.4.12
+        - 10.255.4.13
+        - 10.255.4.14
+        - 10.255.4.15
+        - 10.255.4.16
+      count: 0
+      name_prefix: "compute-blade"
+      hostname: "compute-blade"
+    # User Access node(s)
+    user-blade:
+      parent_class: base-blade
+      pure_base_class: false
+# Don't turn off external IPs until we figure out how to NAT around
+# the problem of losing access to the public internet when we do.
+#     access_config: []  # Turn off external IPs on this node
+      blade_interconnect:
+        subnetwork: "vshasta-interconnect"
+        ip_addrs:
+        - 10.255.5.1
+        - 10.255.5.2
+        - 10.255.5.3
+        - 10.255.5.4
+        - 10.255.5.5
+        - 10.255.5.6
+        - 10.255.5.7
+        - 10.255.5.8
+        - 10.255.5.9
+        - 10.255.5.10
+        - 10.255.5.11
+        - 10.255.5.12
+        - 10.255.5.13
+        - 10.255.5.14
+        - 10.255.5.15
+        - 10.255.5.16
+      count: 0
+      name_prefix: "user-blade"
+      hostname: "user-blade"

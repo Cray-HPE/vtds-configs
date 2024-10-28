@@ -36,11 +36,11 @@ core:
         url: "git@github.com:Cray-HPE/vtds-cluster-kvm.git"
         version: null
     application:
-      package: vtds-application-openchami
-      module: vtds_application_openchami
+      package: vtds-application-vshasta
+      module: vtds_application_vshasta
       source_type: git
       metadata:
-        url: "git@github.com:Cray-HPE/vtds-application-openchami.git"
+        url: "git@github.com:Cray-HPE/vtds-application-vshasta.git"
         version: null
   configurations:
   - type: git
@@ -52,32 +52,32 @@ core:
       path: layers/provider/gcp/provider-gcp-hpe-org.yaml
   - type: git
     metadata:
-      # This brings in the OpenCHAMI configuration
+      # This brings in the vShasta v3 configuration
       # for the provider layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: null
-      path: layers/provider/gcp/provider-gcp-openChami.yaml
+      path: layers/provider/gcp/provider-gcp-vshasta.yaml
   - type: git
     metadata:
-      # This brings in the OpenCHAMI configuration
+      # This brings in the vShasta v3 configuration
       # for the platform layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: null
-      path: layers/platform/ubuntu/platform-ubuntu-openChami.yaml
+      path: layers/platform/ubuntu/platform-ubuntu-vshasta.yaml
   - type: git
     metadata:
-      # This brings in the OpenCHAMI configuration
+      # This brings in the vShasta v3 configuration
       # for the cluster layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: null
-      path: layers/cluster/kvm/cluster-kvm-openChami.yaml
+      path: layers/cluster/kvm/cluster-kvm-vshasta.yaml
   - type: git
     metadata:
-      # This brings in the OpenCHAMI configuration
+      # This brings in the vShasta v3 configuration
       # for the application layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: null
-      path: layers/application/ubuntu/application-ubuntu-openChami.yaml
+      path: layers/application/ubuntu/application-ubuntu-vshasta.yaml
   - type: command-line
     # Bring in any configuration files / sources listed on the command
     # line and merge them on top of what has been listed here. This
@@ -90,4 +90,4 @@ core:
     metadata: {}
 provider:
   project:
-    base_name: ochami
+    base_name: vshasta
