@@ -1,0 +1,920 @@
+cluster:
+  networks:
+    node_managment:
+      network_name: nmn
+      tunnel_id: 2
+      devices:
+        bridge: br-nmn
+        tunnel: nmn
+        local:
+          peer: bl-nmn-p
+          interface: bl-nmn
+      blade_interconnect: vshasta-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.252.0.0/17
+          gateway: 10.252.69.1
+          name_servers:
+            - 169.254.169.254
+          # For the moment, while we are still figuring things out, the
+          # blade where the PIT lands will be our temporary DHCP server
+          # for Node IPs. That is the first K8s Management Blade because
+          # there is one PIT and the PIT is hosted by a K8s Management
+          # blade. This will change once we figure out how to net-boot
+          # Virtual Nodes and get the DHCP, Basecamp, and boot protocol
+          # stuff running on the PIT node. At that point, the PIT node
+          # will be the only node that comes up initially and everything
+          # else will be driven by CSM procedures.
+          #
+          # The connected blades are here to support cluster provided
+          # DHCP. Once CSM is handling this, these blades will no longer
+          # be connected nor will there be a DHCP server instance
+          # configured.
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.252.69.1
+              dhcp_server_instance: 0
+          # This is cluster provided DHCP information. It will not be
+          # what CSM will use, and it should be disabled once we have an
+          # applicaiton layer configuration for CSM set up.
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.252.1.1
+                end: 10.252.8.254
+      application_metadata:
+        network_role: nmn
+    high_speed:
+      network_name: hsn
+      tunnel_id: 20
+      devices:
+        bridge: br-hsn
+        tunnel: hsn
+        local:
+          peer: bl-hsn-p
+          interface: bl-hsn
+      blade_interconnect: vshasta-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.253.0.0/16
+          gateway: 10.253.69.1
+          name_servers:
+            - 169.254.169.254
+          # For the moment, while we are still figuring things out, the
+          # blade where the PIT lands will be our temporary DHCP server
+          # for Node IPs. That is the first K8s Management Blade because
+          # there is one PIT and the PIT is hosted by a K8s Management
+          # blade. This will change once we figure out how to net-boot
+          # Virtual Nodes and get the DHCP, Basecamp, and boot protocol
+          # stuff running on the PIT node. At that point, the PIT node
+          # will be the only node that comes up initially and everything
+          # else will be driven by CSM procedures.
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.253.69.1
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.253.1.1
+                end: 10.253.1.254
+      application_metadata:
+        network_role: hsn
+    hardware_management:
+      network_name: hmn
+      tunnel_id: 4
+      devices:
+        bridge: br-hmn
+        tunnel: hmn
+        local:
+          peer: bl-hmn-p
+          interface: bl-hmn
+      blade_interconnect: vshasta-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.254.0.0/17
+          gateway: null
+          name_servers: null
+          # This is the Hardware Management Network. It is the network
+          # that connects to all of the simulated BMCs on the CSM
+          # system. Since simulated BMCs will run on Virtual Blades,
+          # this network needs connectivity to all blade types on the
+          # system. It only needs node connectivity to the managment
+          # nodes (specifically K8s Worker nodes).
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.254.1.1
+                - 10.254.1.2
+                - 10.254.1.3
+                - 10.254.1.4
+                - 10.254.1.5
+                - 10.254.1.6
+                - 10.254.1.7
+                - 10.254.1.8
+                - 10.254.1.9
+                - 10.254.1.10
+                - 10.254.1.11
+                - 10.254.1.12
+                - 10.254.1.13
+                - 10.254.1.14
+                - 10.254.1.15
+                - 10.254.1.16
+            - blade_class: k8s-work-blade
+              addresses:
+                - 10.254.2.1
+                - 10.254.2.2
+                - 10.254.2.3
+                - 10.254.2.4
+                - 10.254.2.5
+                - 10.254.2.6
+                - 10.254.2.7
+                - 10.254.2.8
+                - 10.254.2.9
+                - 10.254.2.10
+                - 10.254.2.11
+                - 10.254.2.12
+                - 10.254.2.13
+                - 10.254.2.14
+                - 10.254.2.15
+                - 10.254.2.16
+            - blade_class: storage-blade
+              addresses:
+                - 10.254.3.1
+                - 10.254.3.2
+                - 10.254.3.3
+                - 10.254.3.4
+                - 10.254.3.5
+                - 10.254.3.6
+                - 10.254.3.7
+                - 10.254.3.8
+                - 10.254.3.9
+                - 10.254.3.10
+                - 10.254.3.11
+                - 10.254.3.12
+                - 10.254.3.13
+                - 10.254.3.14
+                - 10.254.3.15
+                - 10.254.3.16
+            - blade_class: compute-blade
+              addresses:
+                - 10.254.4.1
+                - 10.254.4.2
+                - 10.254.4.3
+                - 10.254.4.4
+                - 10.254.4.5
+                - 10.254.4.6
+                - 10.254.4.7
+                - 10.254.4.8
+                - 10.254.4.9
+                - 10.254.4.10
+                - 10.254.4.11
+                - 10.254.4.12
+                - 10.254.4.13
+                - 10.254.4.14
+                - 10.254.4.15
+                - 10.254.4.16
+            - blade_class: user-blade
+              addresses:
+                - 10.254.5.1
+                - 10.254.5.2
+                - 10.254.5.3
+                - 10.254.5.4
+                - 10.254.5.5
+                - 10.254.5.6
+                - 10.254.5.7
+                - 10.254.5.8
+                - 10.254.5.9
+                - 10.254.5.10
+                - 10.254.5.11
+                - 10.254.5.12
+                - 10.254.5.13
+                - 10.254.5.14
+                - 10.254.5.15
+                - 10.254.5.16
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.254.6.1
+                end: 10.254.6.255
+              - start: 10.254.7.1
+                end: 10.254.7.255
+              - start: 10.254.8.1
+                end: 10.254.8.255
+              - start: 10.254.9.1
+                end: 10.254.9.255
+              - start: 10.254.10.1
+                end: 10.254.10.255
+      application_metadata:
+        network_role: hmn
+    customer_access:
+      network_name: can
+      tunnel_id: 6
+      devices:
+        bridge: br-can
+        tunnel: can
+        local:
+          peer: bl-can-p
+          interface: bl-cmn
+      blade_interconnect: vshasta-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.103.5.128/26
+          gateway: 10.103.5.129
+          name_servers:
+            - 169.254.169.254
+          # This is the analog to the customer access network. Once the
+          # PIT has transitioned, it will be on this network as a node
+          # outside the vShasta cluster. Prior to that, the PIT uses
+          # this network to talk to the outside world. The K8s
+          # Management blade is the DHCP server for this network, and
+          # should remain that way. This is done to look sort of like a
+          # customer network DHCP handing out configuration to managed
+          # nodes that are reachable from the customer network.
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.103.5.129
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.103.5.160
+                end: 10.103.5.254
+      application_metadata:
+        network_role: can
+    customer_managment:
+      network_name: cmn
+      tunnel_id: 7
+      devices:
+        bridge: br-cmn
+        tunnel: cmn
+        local:
+          peer: bl-cmn-p
+          interface: bl-cmn
+      blade_interconnect: vshasta-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.1.1.0/24
+          gateway: 10.1.1.1
+          name_servers:
+            - 169.254.169.254
+          # This is the analog to the customer management
+          # network. Once the PIT has transitioned, it will be on this
+          # network as a node outside the vShasta cluster. Prior to
+          # that, the PIT uses this network to talk to the outside
+          # world. The K8s Management blade is the DHCP server for
+          # this network, and should remain that way. This is done to
+          # look sort of like a customer network DHCP handing out
+          # configuration to management nodes that are reachable from
+          # the customer network.
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.1.1.1
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.1.1.2
+                end: 10.1.1.254
+      application_metadata:
+        network_role: cmn
+  node_classes:
+    pit_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 1
+      host_blade:
+        blade_class: k8s-mgmt-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - pit
+        base_name: pit
+      application_metadata:
+        node_role: null
+        node_hw_format: null
+      network_interfaces:
+        # The PIT is not set up by CSM, it sets up CSM, so assign its
+        # addressing here. It learns its config on the CMN from the
+        # k8s-mgmt blade's DHCP server. Otherwise it is just on the NMN
+        # and the HMN as a node.
+        cmn:
+          cluster_network: cmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.1.1.2
+              hostname_suffix: -cmn
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: static
+              node_names:
+                - pit
+              addresses:
+                - 10.252.0.2
+        hmn:
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: static
+              addresses:
+                - 10.254.0.2
+          cluster_network: hmn
+    k8s_mgmt_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 3
+      host_blade:
+        blade_class: k8s-mgmt-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - ncn-m001
+          - ncn-m002
+          - ncn-m003
+          - ncn-m004
+          - ncn-m005
+          - ncn-m006
+          - ncn-m007
+          - ncn-m008
+          - ncn-m009
+          - ncn-m010
+          - ncn-m011
+          - ncn-m012
+          - ncn-m013
+          - ncn-m014
+          - ncn-m015
+          - ncn-m016
+        base_name: ncn-m
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Master      # Sub-Role
+        node_hw_format: mn%2.2d
+      network_interfaces:
+      # All of the network addressing and so forth will, really, be
+      # managed by CSM, but, for now, get things set up al least
+      # approximately right.
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.252.1.10
+                - 10.252.1.11
+                - 10.252.1.12
+                - 10.252.1.13
+                - 10.252.1.14
+                - 10.252.1.15
+                - 10.252.1.16
+                - 10.252.1.17
+                - 10.252.1.18
+                - 10.252.1.19
+                - 10.252.1.20
+                - 10.252.1.21
+                - 10.252.1.22
+                - 10.252.1.22
+                - 10.252.1.24
+                - 10.252.1.25
+        hsn:
+          cluster_network: hsn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.253.1.1
+                - 10.253.1.2
+                - 10.253.1.3
+                - 10.253.1.4
+                - 10.253.1.5
+                - 10.253.1.6
+                - 10.253.1.7
+                - 10.253.1.8
+                - 10.253.1.9
+                - 10.253.1.10
+                - 10.253.1.11
+                - 10.253.1.12
+                - 10.253.1.13
+                - 10.253.1.14
+                - 10.253.1.15
+                - 10.253.1.16
+              hostname_suffix: -hsn
+        hmn:
+          cluster_network: hmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.254.6.1
+                - 10.254.6.2
+                - 10.254.6.3
+                - 10.254.6.4
+                - 10.254.6.5
+                - 10.254.6.6
+                - 10.254.6.7
+                - 10.254.6.8
+                - 10.254.6.9
+                - 10.254.6.10
+                - 10.254.6.11
+                - 10.254.6.12
+                - 10.254.6.13
+                - 10.254.6.14
+                - 10.254.6.15
+                - 10.254.6.16
+              hostname_suffix: -hmn
+    k8s_work_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 3
+      host_blade:
+        blade_class: k8s-work-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - ncn-w001
+          - ncn-w002
+          - ncn-w003
+          - ncn-w004
+          - ncn-w005
+          - ncn-w006
+          - ncn-w007
+          - ncn-w008
+          - ncn-w009
+          - ncn-w010
+          - ncn-w011
+          - ncn-w012
+          - ncn-w013
+          - ncn-w014
+          - ncn-w015
+          - ncn-w016
+        base_name: ncn-w
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Worker      # Sub-Role
+        node_hw_format: wn%2.2d
+      network_interfaces:
+      # All of the network addressing and so forth will, really, be
+      # managed by CSM, but, for now, get things set up al least
+      # approximately right.
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.252.1.7 # This follows vShasta v2 convention
+                - 10.252.1.8 #
+                - 10.252.1.9 #
+                - 10.252.2.1
+                - 10.252.2.2
+                - 10.252.2.3
+                - 10.252.2.4
+                - 10.252.2.5
+                - 10.252.2.6
+                - 10.252.2.7
+                - 10.252.2.8
+                - 10.252.2.9
+                - 10.252.2.10
+                - 10.252.2.11
+                - 10.252.2.12
+                - 10.252.2.13
+        hsn:
+          cluster_network: hsn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.253.2.1
+                - 10.253.2.2
+                - 10.253.2.3
+                - 10.253.2.4
+                - 10.253.2.5
+                - 10.253.2.6
+                - 10.253.2.7
+                - 10.253.2.8
+                - 10.253.2.9
+                - 10.253.2.10
+                - 10.253.2.11
+                - 10.253.2.12
+                - 10.253.2.13
+                - 10.253.2.14
+                - 10.253.2.15
+                - 10.253.2.16
+              hostname_suffix: -hsn
+        hmn:
+          cluster_network: hmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.254.7.1
+                - 10.254.7.2
+                - 10.254.7.3
+                - 10.254.7.4
+                - 10.254.7.5
+                - 10.254.7.6
+                - 10.254.7.7
+                - 10.254.7.8
+                - 10.254.7.9
+                - 10.254.7.10
+                - 10.254.7.11
+                - 10.254.7.12
+                - 10.254.7.13
+                - 10.254.7.14
+                - 10.254.7.15
+                - 10.254.7.16
+              hostname_suffix: -hmn
+    storage_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 3
+      host_blade:
+        blade_class: storage-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - ncn-s001
+          - ncn-s002
+          - ncn-s003
+          - ncn-s004
+          - ncn-s005
+          - ncn-s006
+          - ncn-s007
+          - ncn-s008
+          - ncn-s009
+          - ncn-s010
+          - ncn-s011
+          - ncn-s012
+          - ncn-s013
+          - ncn-s014
+          - ncn-s015
+          - ncn-s016
+        base_name: ncn-s
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Storage      # Sub-Role
+        node_hw_format: sn%2.2d
+      network_interfaces:
+      # All of the network addressing and so forth will, really, be
+      # managed by CSM, but, for now, get things set up al least
+      # approximately right.
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.252.1.4 # This follows vShasta v2 convention
+                - 10.252.1.5 #
+                - 10.252.1.6 #
+                - 10.252.3.1
+                - 10.252.3.2
+                - 10.252.3.3
+                - 10.252.3.4
+                - 10.252.3.5
+                - 10.252.3.6
+                - 10.252.3.7
+                - 10.252.3.8
+                - 10.252.3.9
+                - 10.252.3.10
+                - 10.252.3.11
+                - 10.252.3.12
+                - 10.252.3.13
+        hsn:
+          cluster_network: hsn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.253.3.1
+                - 10.253.3.2
+                - 10.253.3.3
+                - 10.253.3.4
+                - 10.253.3.5
+                - 10.253.3.6
+                - 10.253.3.7
+                - 10.253.3.8
+                - 10.253.3.9
+                - 10.253.3.10
+                - 10.253.3.11
+                - 10.253.3.12
+                - 10.253.3.13
+                - 10.253.3.14
+                - 10.253.3.15
+                - 10.253.3.16
+              hostname_suffix: -hsn
+        hmn:
+          cluster_network: hmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.254.8.1
+                - 10.254.8.2
+                - 10.254.8.3
+                - 10.254.8.4
+                - 10.254.8.5
+                - 10.254.8.6
+                - 10.254.8.7
+                - 10.254.8.8
+                - 10.254.8.9
+                - 10.254.8.10
+                - 10.254.8.11
+                - 10.254.8.12
+                - 10.254.8.13
+                - 10.254.8.14
+                - 10.254.8.15
+                - 10.254.8.16
+              hostname_suffix: -hmn
+    compute_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 0
+      host_blade:
+        blade_class: compute-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - nid-001
+          - nid-002
+          - nid-003
+          - nid-004
+          - nid-005
+          - nid-006
+          - nid-007
+          - nid-008
+          - nid-009
+          - nid-010
+          - nid-011
+          - nid-012
+          - nid-013
+          - nid-014
+          - nid-015
+          - nid-016
+        base_name: nid-
+      application_metadata:
+        node_role:
+          - Compute      # Role
+          - null         # No subrole for Compute Nodes
+        node_hw_format: nid%6.6d
+      network_interfaces:
+      # All of the network addressing and so forth will, really, be
+      # managed by CSM, but, for now, get things set up al least
+      # approximately right.
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.252.4.1
+                - 10.252.4.2
+                - 10.252.4.3
+                - 10.252.4.4
+                - 10.252.4.5
+                - 10.252.4.6
+                - 10.252.4.7
+                - 10.252.4.8
+                - 10.252.4.9
+                - 10.252.4.10
+                - 10.252.4.11
+                - 10.252.4.12
+                - 10.252.4.13
+                - 10.252.4.14
+                - 10.252.4.15
+                - 10.252.4.16
+        hsn:
+          cluster_network: hsn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.253.4.1
+                - 10.253.4.2
+                - 10.253.4.3
+                - 10.253.4.4
+                - 10.253.4.5
+                - 10.253.4.6
+                - 10.253.4.7
+                - 10.253.4.8
+                - 10.253.4.9
+                - 10.253.4.10
+                - 10.253.4.11
+                - 10.253.4.12
+                - 10.253.4.13
+                - 10.253.4.14
+                - 10.253.4.15
+                - 10.253.4.16
+              hostname_suffix: -hsn
+        hmn:
+          cluster_network: hmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.254.9.1
+                - 10.254.9.2
+                - 10.254.9.3
+                - 10.254.9.4
+                - 10.254.9.5
+                - 10.254.9.6
+                - 10.254.9.7
+                - 10.254.9.8
+                - 10.254.9.9
+                - 10.254.9.10
+                - 10.254.9.11
+                - 10.254.9.12
+                - 10.254.9.13
+                - 10.254.9.14
+                - 10.254.9.15
+                - 10.254.9.16
+              hostname_suffix: -hmn
+    user_node:
+      pure_base_class: false
+      parent_class: ubuntu_24_04_node
+      node_count: 0
+      host_blade:
+        blade_class: user-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
+      virtual_machine:
+        memory_size_mib: 2048
+      node_naming:
+        node_names:
+          - uan-001
+          - uan-002
+          - uan-003
+          - uan-004
+          - uan-005
+          - uan-006
+          - uan-007
+          - uan-008
+          - uan-009
+          - uan-010
+          - uan-011
+          - uan-012
+          - uan-013
+          - uan-014
+          - uan-015
+          - uan-016
+        base_name: uan-
+      application_metadata:
+        node_role:
+          - Application  # Role
+          - UAN          # Sub-Role
+        node_hw_format: uan%2.2d
+      network_interfaces:
+      # All of the network addressing and so forth will, really, be
+      # managed by CSM, but, for now, get things set up al least
+      # approximately right.
+        nmn:
+          cluster_network: nmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.252.5.1
+                - 10.252.5.2
+                - 10.252.5.3
+                - 10.252.5.4
+                - 10.252.5.5
+                - 10.252.5.6
+                - 10.252.5.7
+                - 10.252.5.8
+                - 10.252.5.9
+                - 10.252.5.10
+                - 10.252.5.11
+                - 10.252.5.12
+                - 10.252.5.13
+                - 10.252.5.14
+                - 10.252.5.15
+                - 10.252.5.16
+        hsn:
+          cluster_network: hsn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.253.5.1
+                - 10.253.5.2
+                - 10.253.5.3
+                - 10.253.5.4
+                - 10.253.5.5
+                - 10.253.5.6
+                - 10.253.5.7
+                - 10.253.5.8
+                - 10.253.5.9
+                - 10.253.5.10
+                - 10.253.5.11
+                - 10.253.5.12
+                - 10.253.5.13
+                - 10.253.5.14
+                - 10.253.5.15
+                - 10.253.5.16
+              hostname_suffix: -hsn
+        hmn:
+          cluster_network: hmn
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: reserved
+              addresses:
+                - 10.254.10.1
+                - 10.254.10.2
+                - 10.254.10.3
+                - 10.254.10.4
+                - 10.254.10.5
+                - 10.254.10.6
+                - 10.254.10.7
+                - 10.254.10.8
+                - 10.254.10.9
+                - 10.254.10.10
+                - 10.254.10.11
+                - 10.254.10.12
+                - 10.254.10.13
+                - 10.254.10.14
+                - 10.254.10.15
+                - 10.254.10.16
+              hostname_suffix: -hmn

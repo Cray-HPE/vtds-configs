@@ -75,28 +75,28 @@ core:
       path: layers/provider/gcp/provider-gcp-example-org.yaml
   - type: git
     metadata:
-      # This brings in the FSM / SCS Connectivity Demo configuration
+      # This brings in the OpenCHAMI configuration
       # for the provider layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/provider/gcp/provider-gcp-openChami.yaml
   - type: git
     metadata:
-      # This brings in the FSM / SCS Connectivity Demo configuration
+      # This brings in the OpenCHAMI configuration
       # for the platform layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/platform/ubuntu/platform-ubuntu-openChami.yaml
   - type: git
     metadata:
-      # This brings in the FSM / SCS Connectivity Demo configuration
+      # This brings in the OpenCHAMI configuration
       # for the cluster layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
       path: layers/cluster/kvm/cluster-kvm-openChami.yaml
   - type: git
     metadata:
-      # This brings in the FSM / SCS Connectivity Demo configuration
+      # This brings in the OpenCHAMI configuration
       # for the application layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main

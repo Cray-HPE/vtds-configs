@@ -1,0 +1,34 @@
+# Platform layer configuration for a vShasta cluster
+platform:
+  packages:
+    uefi_firmware:
+      # List of blade classes where the packages should be
+      # installed. If this is null, then the packages will be
+      # installed everywhere. If this is empty packages will not be
+      # installed anywhere. Otherwise packages will only be installed
+      # on instances of the blade classes in this list.
+      blade_classes: null
+      # We are using OVMF as the UEFI firmware for vShasta systems,
+      # install it here.
+      packages:
+        - ovmf
+      preconfig_settings: []
+      services_enable: []
+      services_disable: []
+    bmc_dependencies:
+      # List of blade classes where the packages should be
+      # installed. If this is null, then the packages will be
+      # installed everywhere. If this is empty packages will not be
+      # installed anywhere. Otherwise packages will only be installed
+      # on instances of the blade classes in this list.
+      blade_classes: null
+      # We are using Sushy-Tools as the RedFish BMC for vShasta. To use
+      # it, we need to install libvirt-dev and pkg-config as
+      # dependencies. Sushy-Tools itself is a python install into our
+      # python virtual environment.
+      packages:
+        - libvirt-dev
+        - pkg-config
+      preconfig_settings: []
+      services_enable: []
+      services_disable: []
