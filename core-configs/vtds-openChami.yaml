@@ -48,35 +48,35 @@ core:
       # This brings in the HPE specific settings needed to build an HPE
       # project on GCP.
       repo: git@github.com:Cray-HPE/vtds-configs.git
-      version: open-chami
+      version: null
       path: layers/provider/gcp/provider-gcp-hpe-org.yaml
   - type: git
     metadata:
       # This brings in the FSM / SCS Connectivity Demo configuration
       # for the provider layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
-      version: open-chami
+      version: null
       path: layers/provider/gcp/provider-gcp-openChami.yaml
   - type: git
     metadata:
       # This brings in the FSM / SCS Connectivity Demo configuration
       # for the platform layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
-      version: open-chami
+      version: null
       path: layers/platform/ubuntu/platform-ubuntu-openChami.yaml
   - type: git
     metadata:
       # This brings in the FSM / SCS Connectivity Demo configuration
       # for the cluster layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
-      version: open-chami
+      version: null
       path: layers/cluster/kvm/cluster-kvm-openChami.yaml
   - type: git
     metadata:
       # This brings in the FSM / SCS Connectivity Demo configuration
       # for the application layer.
       repo: git@github.com:Cray-HPE/vtds-configs.git
-      version: open-chami
+      version: null
       path: layers/application/ubuntu/application-ubuntu-openChami.yaml
   - type: command-line
     # Bring in any configuration files / sources listed on the command
