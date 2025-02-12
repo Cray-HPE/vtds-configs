@@ -347,9 +347,10 @@ cluster:
           - pit
         base_name: pit
       network_interfaces:
-        # The PIT is not set up by CSM, it sets up CSM, so assign its addressing
-        # here. It learns its config on the CMN from the k8s-mgmt blade's DHCP
-        # server. Otherwise it is just on the NMN and the HMN as a node.
+        # The PIT is not set up by CSM, it sets up CSM, so assign its
+        # addressing here. It learns its config on the CMN from the
+        # k8s-mgmt blade's DHCP server. Otherwise it is just on the NMN
+        # and the HMN as a node.
         cmn:
           cluster_network: cmn
           addr_info:
@@ -386,9 +387,8 @@ cluster:
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
-      node_naming:
-        mode: emumerated
-        node_names:
+      host_naming:
+        hostnames:
           - ncn-m001
           - ncn-m002
           - ncn-m003
@@ -406,6 +406,25 @@ cluster:
           - ncn-m015
           - ncn-m016
         base_name: ncn-m
+      node_naming:
+        node_names:
+          - x3000c0s0b0n0
+          - x3000c0s1b0n0
+          - x3000c0s2b0n0
+          - x3000c0s3b0n0
+          - x3000c0s4b0n0
+          - x3000c0s5b0n0
+          - x3000c0s6b0n0
+          - x3000c0s7b0n0
+          - x3000c0s8b0n0
+          - x3000c0s9b0n0
+          - x3000c0s10b0n0
+          - x3000c0s11b0n0
+          - x3000c0s12b0n0
+          - x3000c0s13b0n0
+          - x3000c0s14b0n0
+          - x3000c0s15b0n0
+        base_name: overflow-master-xname # Should never be used
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -490,9 +509,8 @@ cluster:
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
-      node_naming:
-        mode: emumerated
-        node_names:
+      host_naming:
+        hostnames:
           - ncn-w001
           - ncn-w002
           - ncn-w003
@@ -510,6 +528,25 @@ cluster:
           - ncn-w015
           - ncn-w016
         base_name: ncn-w
+      node_naming:
+        node_names:
+          - x3000c0s16b0n0
+          - x3000c0s17b0n0
+          - x3000c0s18b0n0
+          - x3000c0s19b0n0
+          - x3000c0s20b0n0
+          - x3000c0s21b0n0
+          - x3000c0s22b0n0
+          - x3000c0s23b0n0
+          - x3000c0s24b0n0
+          - x3000c0s25b0n0
+          - x3000c0s26b0n0
+          - x3000c0s27b0n0
+          - x3000c0s28b0n0
+          - x3000c0s29b0n0
+          - x3000c0s30b0n0
+          - x3000c0s31b0n0
+        base_name: overflow-worker-xname # Should never be used
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -594,9 +631,8 @@ cluster:
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
-      node_naming:
-        mode: emumerated
-        node_names:
+      host_naming:
+        hostnames:
           - ncn-s001
           - ncn-s002
           - ncn-s003
@@ -614,6 +650,25 @@ cluster:
           - ncn-s015
           - ncn-s016
         base_name: ncn-s
+      node_naming:
+        node_names:
+          - x3000c0s32b0n0
+          - x3000c0s33b0n0
+          - x3000c0s34b0n0
+          - x3000c0s35b0n0
+          - x3000c0s36b0n0
+          - x3000c0s37b0n0
+          - x3000c0s38b0n0
+          - x3000c0s39b0n0
+          - x3000c0s40b0n0
+          - x3000c0s41b0n0
+          - x3000c0s42b0n0
+          - x3000c0s43b0n0
+          - x3000c0s44b0n0
+          - x3000c0s45b0n0
+          - x3000c0s46b0n0
+          - x3000c0s47b0n0
+        base_name: overflow-storage-xname # Should never be used
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -698,9 +753,8 @@ cluster:
         instance_capacity: 4
       virtual_machine:
         memory_size_mib: 2048
-      node_naming:
-        mode: emumerated
-        node_names:
+      host_naming:
+        hostnames:
           - nid-001
           - nid-002
           - nid-003
@@ -718,6 +772,25 @@ cluster:
           - nid-015
           - nid-016
         base_name: nid-
+      node_naming:
+        node_names:
+          - x3000c0s48b0n0
+          - x3000c0s49b0n0
+          - x3000c0s50b0n0
+          - x3000c0s51b0n0
+          - x3000c0s52b0n0
+          - x3000c0s53b0n0
+          - x3000c0s54b0n0
+          - x3000c0s55b0n0
+          - x3000c0s56b0n0
+          - x3000c0s57b0n0
+          - x3000c0s58b0n0
+          - x3000c0s59b0n0
+          - x3000c0s60b0n0
+          - x3000c0s61b0n0
+          - x3000c0s62b0n0
+          - x3000c0s63b0n0
+        base_name: overflow-nid-xname # Should never be used
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -802,9 +875,8 @@ cluster:
         instance_capacity: 3
       virtual_machine:
         memory_size_mib: 2048
-      node_naming:
-        mode: emumerated
-        node_names:
+      host_naming:
+        hostnames:
           - uan-001
           - uan-002
           - uan-003
@@ -822,6 +894,25 @@ cluster:
           - uan-015
           - uan-016
         base_name: uan-
+      node_naming:
+        node_names:
+          - x3000c0s64b0n0
+          - x3000c0s65b0n0
+          - x3000c0s66b0n0
+          - x3000c0s67b0n0
+          - x3000c0s68b0n0
+          - x3000c0s69b0n0
+          - x3000c0s70b0n0
+          - x3000c0s71b0n0
+          - x3000c0s72b0n0
+          - x3000c0s73b0n0
+          - x3000c0s74b0n0
+          - x3000c0s75b0n0
+          - x3000c0s76b0n0
+          - x3000c0s77b0n0
+          - x3000c0s78b0n0
+          - x3000c0s79b0n0
+        base_name: overflow-uan-xname # Should never be used
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
