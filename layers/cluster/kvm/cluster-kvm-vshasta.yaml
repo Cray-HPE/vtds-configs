@@ -10,27 +10,28 @@ cluster:
           peer: bl-nmn-p
           interface: bl-nmn
       blade_interconnect: vshasta-interconnect
-      l3_configs:
+      # For the moment, while we are still figuring things out, the
+      # blade where the PIT lands will be our temporary DHCP server
+      # for Node IPs. That is the first K8s Management Blade because
+      # there is one PIT and the PIT is hosted by a K8s Management
+      # blade. This will change once we figure out how to net-boot
+      # Virtual Nodes and get the DHCP, Basecamp, and boot protocol
+      # stuff running on the PIT node. At that point, the PIT node
+      # will be the only node that comes up initially and everything
+      # else will be driven by CSM procedures.
+      connected_blades:
+        - blade_class: k8s-mgmt-blade
+          blade_instances:
+            - 0
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.252.0.0/17
           gateway: 10.252.69.1
           name_servers:
             - 169.254.169.254
-          # For the moment, while we are still figuring things out,
-          # the blade where the PIT lands will be our temporary DHCP
-          # server for Node IPs. That is the first K8s Management
-          # Blade because there is one PIT per blade and there is one
-          # PIT and the PIT is hosted by a K8s Management blade. This
-          # will change once we figure out how to net-boot Virtual
-          # Nodes and get the DHCP, Basecamp, and boot protocol stuff
-          # running on the PIT node. At that point, the PIT node will
-          # be the only node that comes up initially and everything
-          # else will be driven by CSM procedures.
           connected_blades:
             - blade_class: k8s-mgmt-blade
-              blade_instances:
-                - 0
               blade_ips:
                 - 10.252.69.1
               dhcp_server_instance: 0
@@ -49,27 +50,28 @@ cluster:
           peer: bl-hsn-p
           interface: bl-hsn
       blade_interconnect: vshasta-interconnect
-      l3_configs:
+      # For the moment, while we are still figuring things out, the
+      # blade where the PIT lands will be our temporary DHCP server
+      # for Node IPs. That is the first K8s Management Blade because
+      # there is one PIT and the PIT is hosted by a K8s Management
+      # blade. This will change once we figure out how to net-boot
+      # Virtual Nodes and get the DHCP, Basecamp, and boot protocol
+      # stuff running on the PIT node. At that point, the PIT node
+      # will be the only node that comes up initially and everything
+      # else will be driven by CSM procedures.
+      connected_blades:
+        - blade_class: k8s-mgmt-blade
+          blade_instances:
+            - 0
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.253.0.0/16
           gateway: 10.253.69.1
           name_servers:
             - 169.254.169.254
-          # For the moment, while we are still figuring things out,
-          # the blade where the PIT lands will be our temporary DHCP
-          # server for Node IPs. That is the first K8s Management
-          # Blade because there is one PIT per blade and there is one
-          # PIT and the PIT is hosted by a K8s Management blade. This
-          # will change once we figure out how to net-boot Virtual
-          # Nodes and get the DHCP, Basecamp, and boot protocol stuff
-          # running on the PIT node. At that point, the PIT node will
-          # be the only node that comes up initially and everything
-          # else will be driven by CSM procedures.
           connected_blades:
             - blade_class: k8s-mgmt-blade
-              blade_instances:
-                - 0
               blade_ips:
                 - 10.253.69.1
               dhcp_server_instance: 0
@@ -88,41 +90,114 @@ cluster:
           peer: bl-hmn-p
           interface: bl-hmn
       blade_interconnect: vshasta-interconnect
-      l3_configs:
+      connected_blades:
+        - blade_class: k8s-mgmt-blade
+          blade_instances:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+          # For the moment, while we are still figuring things out, the
+          # blade where the PIT lands will be our temporary DHCP server
+          # for Node IPs. That is the first K8s Management Blade because
+          # there is one PIT and the PIT is hosted by a K8s Management
+          # blade. This will change once we figure out how to net-boot
+          # Virtual Nodes and get the DHCP, Basecamp, and boot protocol
+          # stuff running on the PIT node. At that point, the PIT node
+          # will be the only node that comes up initially and everything
+          # else will be driven by CSM procedures.
+        - blade_class: k8s-work-blade
+          blade_instances:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+        - blade_class: storage-blade
+          blade_instances:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+        - blade_class: compute-blade
+          blade_instances:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+        - blade_class: user-blade
+          blade_instances:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.254.0.0/17
           gateway: null
           name_servers: null
-          # For the moment, while we are still figuring things out,
-          # the blade where the PIT lands will be our temporary DHCP
-          # server for Node IPs. That is the first K8s Management
-          # Blade because there is one PIT per blade and there is one
-          # PIT and the PIT is hosted by a K8s Management blade. This
-          # will change once we figure out how to net-boot Virtual
-          # Nodes and get the DHCP, Basecamp, and boot protocol stuff
-          # running on the PIT node. At that point, the PIT node will
-          # be the only node that comes up initially and everything
-          # else will be driven by CSM procedures.
           connected_blades:
             - blade_class: k8s-mgmt-blade
-              blade_instances:
-                - 0
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
-                - 9
-                - 10
-                - 11
-                - 12
-                - 13
-                - 14
-                - 15
               blade_ips:
                 - 10.254.1.1
                 - 10.254.1.2
@@ -141,23 +216,6 @@ cluster:
                 - 10.254.1.15
                 - 10.254.1.16
             - blade_class: k8s-work-blade
-              blade_instances:
-                - 0
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
-                - 9
-                - 10
-                - 11
-                - 12
-                - 13
-                - 14
-                - 15
               blade_ips:
                 - 10.254.2.1
                 - 10.254.2.2
@@ -176,23 +234,6 @@ cluster:
                 - 10.254.2.15
                 - 10.254.2.16
             - blade_class: storage-blade
-              blade_instances:
-                - 0
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
-                - 9
-                - 10
-                - 11
-                - 12
-                - 13
-                - 14
-                - 15
               blade_ips:
                 - 10.254.3.1
                 - 10.254.3.2
@@ -211,23 +252,6 @@ cluster:
                 - 10.254.3.15
                 - 10.254.3.16
             - blade_class: compute-blade
-              blade_instances:
-                - 0
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
-                - 9
-                - 10
-                - 11
-                - 12
-                - 13
-                - 14
-                - 15
               blade_ips:
                 - 10.254.4.1
                 - 10.254.4.2
@@ -246,23 +270,6 @@ cluster:
                 - 10.254.4.15
                 - 10.254.4.16
             - blade_class: user-blade
-              blade_instances:
-                - 0
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
-                - 9
-                - 10
-                - 11
-                - 12
-                - 13
-                - 14
-                - 15
               blade_ips:
                 - 10.254.5.1
                 - 10.254.5.2
@@ -303,7 +310,11 @@ cluster:
           peer: bl-cmn-p
           interface: bl-cmn
       blade_interconnect: vshasta-interconnect
-      l3_configs:
+      connected_blades:
+        - blade_class: k8s-mgmt-blade
+          blade_instances:
+            - 0
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.1.1.0/24
@@ -321,8 +332,6 @@ cluster:
           # the customer network.
           connected_blades:
             - blade_class: k8s-mgmt-blade
-              blade_instances:
-                - 0
               blade_ips:
                 - 10.1.1.1
               dhcp_server_instance: 0

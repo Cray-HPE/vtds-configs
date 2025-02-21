@@ -48,7 +48,74 @@ provider:
       count: 3
       name_prefix: "k8s-mgmt-blade"
       hostname: "k8s-mgmt-blade"
-    # Kubernetes Worker Nodes
+      application_metadata:
+        description: "k8s master blades"
+        placements:
+          - cabinet: 3000
+            chassis: 0
+            shelf: 0
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 1
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 2
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 3
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 4
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 5
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 6
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 7
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 8
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 9
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 10
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 11
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 12
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 13
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 14
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 15
+            blade: 0
+    # Kubernetes Worker Node host blades
     k8s-work-blade:
       parent_class: base-blade
       pure_base_class: false
@@ -77,7 +144,74 @@ provider:
       count: 3
       name_prefix: "k8s-work-blade"
       hostname: "k8s-work-blade"
-    # Storage node(s)
+      application_metadata:
+        description: "k8s worker blades"
+        placements:
+          - cabinet: 3000
+            chassis: 0
+            shelf: 16
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 17
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 18
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 19
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 20
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 21
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 22
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 23
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 24
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 25
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 26
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 27
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 28
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 29
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 30
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 31
+            blade: 0
+    # Storage node host blades
     storage-blade:
       parent_class: base-blade
       pure_base_class: false
@@ -106,7 +240,74 @@ provider:
       count: 3
       name_prefix: "storage-blade"
       hostname: "storage-blade"
-    # Compute node(s)
+      application_metadata:
+        description: "storage blades"
+        placements:
+          - cabinet: 3000
+            chassis: 0
+            shelf: 32
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 33
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 34
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 35
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 36
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 37
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 38
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 39
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 40
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 41
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 42
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 43
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 44
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 45
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 46
+            blade: 0
+          - cabinet: 3000
+            chassis: 0
+            shelf: 47
+            blade: 0
+    # Compute node host blades
     compute-blade:
       parent_class: base-blade
       pure_base_class: false
@@ -135,7 +336,74 @@ provider:
       count: 0
       name_prefix: "compute-blade"
       hostname: "compute-blade"
-    # User Access node(s)
+      application_metadata:
+        description: "compute blades"
+        placements:
+          - cabinet: 3000
+            chassis: 1
+            shelf: 0
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 1
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 2
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 3
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 4
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 5
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 6
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 7
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 8
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 9
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 10
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 11
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 12
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 13
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 14
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 15
+            blade: 0
+    # User Access node host blades
     user-blade:
       parent_class: base-blade
       pure_base_class: false
@@ -164,3 +432,70 @@ provider:
       count: 0
       name_prefix: "user-blade"
       hostname: "user-blade"
+      application_metadata:
+        description: "user blades"
+        placements:
+          - cabinet: 3000
+            chassis: 1
+            shelf: 16
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 17
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 18
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 19
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 20
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 21
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 22
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 23
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 24
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 25
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 26
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 27
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 28
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 29
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 30
+            blade: 0
+          - cabinet: 3000
+            chassis: 1
+            shelf: 31
+            blade: 0
