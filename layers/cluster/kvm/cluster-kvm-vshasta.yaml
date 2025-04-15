@@ -2,7 +2,7 @@ cluster:
   networks:
     node_managment:
       network_name: nmn
-      tunnel_id: 10
+      tunnel_id: 2
       devices:
         bridge: br-nmn
         tunnel: nmn
@@ -30,16 +30,25 @@ cluster:
           gateway: 10.252.69.1
           name_servers:
             - 169.254.169.254
+          # The connected blades are here to support cluster provided
+          # DHCP. Once CSM is handling this, these blades will no longer
+          # be connected nor will there be a DHCP server instance
+          # configured.
           connected_blades:
             - blade_class: k8s-mgmt-blade
               addresses:
                 - 10.252.69.1
               dhcp_server_instance: 0
+          # This is cluster provided DHCP information. It will not be
+          # what CSM will use, and it should be disabled once we have an
+          # applicaiton layer configuration for CSM set up.
           dhcp:
             enabled: true
             pools:
               - start: 10.252.1.1
                 end: 10.252.8.254
+      application_metadata:
+        network_role: nmn
     high_speed:
       network_name: hsn
       tunnel_id: 20
@@ -80,9 +89,11 @@ cluster:
             pools:
               - start: 10.253.1.1
                 end: 10.253.1.254
+      application_metadata:
+        network_role: hsn
     hardware_management:
       network_name: hmn
-      tunnel_id: 30
+      tunnel_id: 4
       devices:
         bridge: br-hmn
         tunnel: hmn
@@ -300,9 +311,52 @@ cluster:
                 end: 10.254.9.255
               - start: 10.254.10.1
                 end: 10.254.10.255
+      application_metadata:
+        network_role: hmn
+    customer_access:
+      network_name: can
+      tunnel_id: 6
+      devices:
+        bridge: br-can
+        tunnel: can
+        local:
+          peer: bl-can-p
+          interface: bl-cmn
+      blade_interconnect: vshasta-interconnect
+      connected_blades:
+        - blade_class: k8s-mgmt-blade
+          blade_instances:
+            - 0
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.103.5.128/26
+          gateway: 10.103.5.129
+          name_servers:
+            - 169.254.169.254
+          # This is the analog to the customer access network. Once the
+          # PIT has transitioned, it will be on this network as a node
+          # outside the vShasta cluster. Prior to that, the PIT uses
+          # this network to talk to the outside world. The K8s
+          # Management blade is the DHCP server for this network, and
+          # should remain that way. This is done to look sort of like a
+          # customer network DHCP handing out configuration to managed
+          # nodes that are reachable from the customer network.
+          connected_blades:
+            - blade_class: k8s-mgmt-blade
+              addresses:
+                - 10.103.5.129
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.103.5.160
+                end: 10.103.5.254
+      application_metadata:
+        network_role: can
     customer_managment:
       network_name: cmn
-      tunnel_id: 40
+      tunnel_id: 7
       devices:
         bridge: br-cmn
         tunnel: cmn
@@ -340,6 +394,8 @@ cluster:
             pools:
               - start: 10.1.1.2
                 end: 10.1.1.254
+      application_metadata:
+        network_role: cmn
   node_classes:
     pit_node:
       pure_base_class: false
@@ -347,6 +403,13 @@ cluster:
       node_count: 1
       host_blade:
         blade_class: k8s-mgmt-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
@@ -354,6 +417,9 @@ cluster:
         node_names:
           - pit
         base_name: pit
+      application_metadata:
+        node_role: null
+        node_hw_format: null
       network_interfaces:
         # The PIT is not set up by CSM, it sets up CSM, so assign its
         # addressing here. It learns its config on the CMN from the
@@ -392,6 +458,13 @@ cluster:
       node_count: 3
       host_blade:
         blade_class: k8s-mgmt-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
@@ -414,6 +487,11 @@ cluster:
           - ncn-m015
           - ncn-m016
         base_name: ncn-m
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Master      # Sub-Role
+        node_hw_format: mn%2.2d
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -495,6 +573,13 @@ cluster:
       node_count: 3
       host_blade:
         blade_class: k8s-work-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
@@ -517,6 +602,11 @@ cluster:
           - ncn-w015
           - ncn-w016
         base_name: ncn-w
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Worker      # Sub-Role
+        node_hw_format: wn%2.2d
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -598,6 +688,13 @@ cluster:
       node_count: 3
       host_blade:
         blade_class: storage-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
         instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
@@ -620,6 +717,11 @@ cluster:
           - ncn-s015
           - ncn-s016
         base_name: ncn-s
+      application_metadata:
+        node_role:
+          - Management  # Role
+          - Storage      # Sub-Role
+        node_hw_format: sn%2.2d
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -700,8 +802,15 @@ cluster:
       parent_class: ubuntu_24_04_node
       node_count: 0
       host_blade:
-        blade_class: storage-blade
-        instance_capacity: 4
+        blade_class: compute-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
       node_naming:
@@ -723,6 +832,11 @@ cluster:
           - nid-015
           - nid-016
         base_name: nid-
+      application_metadata:
+        node_role:
+          - Compute      # Role
+          - null         # No subrole for Compute Nodes
+        node_hw_format: nid%6.6d
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least
@@ -803,8 +917,15 @@ cluster:
       parent_class: ubuntu_24_04_node
       node_count: 0
       host_blade:
-        blade_class: storage-blade
-        instance_capacity: 3
+        blade_class: user-blade
+        # In order to use the Virtual Blade as a virtual BMC, vShasta
+        # limits the number of Virtual Nodes per Virtual Blade to 1,
+        # thereby allowing a simple 1:1 mapping of Virtual Blade IP
+        # Address (which is also the BMC IP address) to Virtual Node on
+        # the HMN.
+        #
+        # Do not override this value.
+        instance_capacity: 1
       virtual_machine:
         memory_size_mib: 2048
       node_naming:
@@ -826,6 +947,11 @@ cluster:
           - uan-015
           - uan-016
         base_name: uan-
+      application_metadata:
+        node_role:
+          - Application  # Role
+          - UAN          # Sub-Role
+        node_hw_format: uan%2.2d
       network_interfaces:
       # All of the network addressing and so forth will, really, be
       # managed by CSM, but, for now, get things set up al least

@@ -50,6 +50,26 @@ provider:
       hostname: "k8s-mgmt-blade"
       application_metadata:
         description: "k8s master blades"
+        bmc:
+          # The redfish server runs by default on port 8080 and nodes
+          # within its control are named using their xnames. Change this
+          # if you want a different port.
+          redfish_server_port: 8080
+          # The IPMI server that runs on blades uses ports to
+          # differentiate between Virtual Nodes, so, if more than one
+          # Virtual Node is registered with it, then a port range is
+          # needed to address the individual nodes. If a port range is
+          # desired, the base port should be moved to somewhere with
+          # room to grow into (6230 is a reasonable choice) and
+          # 'sequential' should be set to true. Then the first node will
+          # be assigned the base port and subsequent nodes will be
+          # assigned the next numbered port. The default port for IPMI
+          # is 623, so, if there is only one IPMI controlled Virtual
+          # Node on the blade, that should be used. The current vShasta
+          # config has only one node per blade.
+          ipmi:
+            base_port: 623
+            sequential: false
         placements:
           - cabinet: 3000
             chassis: 0
@@ -146,6 +166,26 @@ provider:
       hostname: "k8s-work-blade"
       application_metadata:
         description: "k8s worker blades"
+        bmc:
+          # The redfish server runs by default on port 8080 and nodes
+          # within its control are named using their xnames. Change this
+          # if you want a different port.
+          redfish_server_port: 8080
+          # The IPMI server that runs on blades uses ports to
+          # differentiate between Virtual Nodes, so, if more than one
+          # Virtual Node is registered with it, then a port range is
+          # needed to address the individual nodes. If a port range is
+          # desired, the base port should be moved to somewhere with
+          # room to grow into (6230 is a reasonable choice) and
+          # 'sequential' should be set to true. Then the first node will
+          # be assigned the base port and subsequent nodes will be
+          # assigned the next numbered port. The default port for IPMI
+          # is 623, so, if there is only one IPMI controlled Virtual
+          # Node on the blade, that should be used. The current vShasta
+          # config has only one node per blade.
+          ipmi:
+            base_port: 623
+            sequential: false
         placements:
           - cabinet: 3000
             chassis: 0
@@ -242,6 +282,26 @@ provider:
       hostname: "storage-blade"
       application_metadata:
         description: "storage blades"
+        bmc:
+          # The redfish server runs by default on port 8080 and nodes
+          # within its control are named using their xnames. Change this
+          # if you want a different port.
+          redfish_server_port: 8080
+          # The IPMI server that runs on blades uses ports to
+          # differentiate between Virtual Nodes, so, if more than one
+          # Virtual Node is registered with it, then a port range is
+          # needed to address the individual nodes. If a port range is
+          # desired, the base port should be moved to somewhere with
+          # room to grow into (6230 is a reasonable choice) and
+          # 'sequential' should be set to true. Then the first node will
+          # be assigned the base port and subsequent nodes will be
+          # assigned the next numbered port. The default port for IPMI
+          # is 623, so, if there is only one IPMI controlled Virtual
+          # Node on the blade, that should be used. The current vShasta
+          # config has only one node per blade.
+          ipmi:
+            base_port: 623
+            sequential: false
         placements:
           - cabinet: 3000
             chassis: 0
@@ -338,69 +398,89 @@ provider:
       hostname: "compute-blade"
       application_metadata:
         description: "compute blades"
+        bmc:
+          # The redfish server runs by default on port 8080 and nodes
+          # within its control are named using their xnames. Change this
+          # if you want a different port.
+          redfish_server_port: 8080
+          # The IPMI server that runs on blades uses ports to
+          # differentiate between Virtual Nodes, so, if more than one
+          # Virtual Node is registered with it, then a port range is
+          # needed to address the individual nodes. If a port range is
+          # desired, the base port should be moved to somewhere with
+          # room to grow into (6230 is a reasonable choice) and
+          # 'sequential' should be set to true. Then the first node will
+          # be assigned the base port and subsequent nodes will be
+          # assigned the next numbered port. The default port for IPMI
+          # is 623, so, if there is only one IPMI controlled Virtual
+          # Node on the blade, that should be used. The current vShasta
+          # config has only one node per blade.
+          ipmi:
+            base_port: 623
+            sequential: false
         placements:
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 0
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 1
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 2
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 3
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 4
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 5
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 6
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 7
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 8
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 9
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 10
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 11
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 12
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 13
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 14
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 15
             blade: 0
     # User Access node host blades
@@ -434,68 +514,88 @@ provider:
       hostname: "user-blade"
       application_metadata:
         description: "user blades"
+        bmc:
+          # The redfish server runs by default on port 8080 and nodes
+          # within its control are named using their xnames. Change this
+          # if you want a different port.
+          redfish_server_port: 8080
+          # The IPMI server that runs on blades uses ports to
+          # differentiate between Virtual Nodes, so, if more than one
+          # Virtual Node is registered with it, then a port range is
+          # needed to address the individual nodes. If a port range is
+          # desired, the base port should be moved to somewhere with
+          # room to grow into (6230 is a reasonable choice) and
+          # 'sequential' should be set to true. Then the first node will
+          # be assigned the base port and subsequent nodes will be
+          # assigned the next numbered port. The default port for IPMI
+          # is 623, so, if there is only one IPMI controlled Virtual
+          # Node on the blade, that should be used. The current vShasta
+          # config has only one node per blade.
+          ipmi:
+            base_port: 623
+            sequential: false
         placements:
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 16
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 17
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 18
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 19
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 20
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 21
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 22
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 23
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 24
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 25
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 26
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 27
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 28
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 29
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 30
             blade: 0
-          - cabinet: 3000
-            chassis: 1
+          - cabinet: 3001
+            chassis: 0
             shelf: 31
             blade: 0
