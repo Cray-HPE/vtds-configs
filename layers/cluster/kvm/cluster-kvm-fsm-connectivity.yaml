@@ -33,7 +33,7 @@ cluster:
           peer: bl-scsnet-p
           interface: bl-scsnet
       blade_interconnect: demo-interconnect
-      l3_configs:
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.1.1.0/24
@@ -42,9 +42,7 @@ cluster:
             - 169.254.169.254
           connected_blades:
             - blade_class: scs-blade
-              blade_instances:
-                - 0
-              blade_ips:
+              addresses:
                 - 10.1.1.1
               dhcp_server_instance: 0
           dhcp:
@@ -62,7 +60,7 @@ cluster:
           peer: bl-fsmnet-p
           interface: bl-fsmnet
       blade_interconnect: demo-interconnect
-      l3_configs:
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.2.1.0/24
@@ -71,9 +69,7 @@ cluster:
             - 169.254.169.254
           connected_blades:
             - blade_class: fsm-blade
-              blade_instances:
-                - 0
-              blade_ips:
+              addresses:
                 - 10.2.1.1
               dhcp_server_instance: 0
           dhcp:
@@ -91,7 +87,7 @@ cluster:
           peer: bl-crossnet-p
           interface: bl-crossnet
       blade_interconnect: demo-interconnect
-      l3_configs:
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.3.1.0/24
@@ -99,9 +95,7 @@ cluster:
           name_servers: null
           connected_blades:
             - blade_class: scs-blade
-              blade_instances:
-                - 0
-              blade_ips:
+              addresses:
                 - 10.3.1.1
               dhcp_server_instance: 0
           dhcp:
