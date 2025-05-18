@@ -25,14 +25,14 @@
 cluster:
   networks:
     primary_network:
-      network_name: primenet
+      network_name: hostnet
       tunnel_id: 10
       devices:
-        bridge: br-primenet
-        tunnel: primenet
+        bridge: br-hostnet
+        tunnel: hostnet
         local:
-          peer: bl-primenet-p
-          interface: bl-primenet
+          peer: bl-hostnet-p
+          interface: bl-hostnet
       blade_interconnect: blade-interconnect
       address_families:
         ipv4:
@@ -66,7 +66,7 @@ cluster:
         base_name: ochami
       network_interfaces:
         primary_network:
-          cluster_network: primenet
+          cluster_network: hostnet
           addr_info:
             ipv4:
               family: AF_INET
