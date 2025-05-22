@@ -34,7 +34,7 @@ cluster:
           peer: bl-testnet-p
           interface: bl-testnet
       blade_interconnect: test-interconnect
-      l3_configs:
+      address_families:
         ipv4:
           family: AF_INET
           cidr: 10.1.1.0/24
@@ -43,8 +43,6 @@ cluster:
             - 169.254.169.254
           connected_blades:
             - blade_class: test-blade-type-1
-              blade_instances:
-                - 0
               blade_ips:
                 - 10.1.1.1
               dhcp_server_instance: 0
