@@ -1,0 +1,72 @@
+#
+# MIT License
+#
+# (C) Copyright 2025 Hewlett Packard Enterprise Development LP
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+core:
+  layers:
+    base:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-base.git
+        version: null
+      module: vtds_base
+      package: vtds-base
+      source_type: git
+    core:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-core.git
+        version: null
+      module: vtds_core
+      package: vtds-core
+      source_type: git
+    provider:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-provider-mock.git
+        version: null
+      module: vtds_provider_mock
+      package: vtds-provider-mock
+      source_type: git
+    platform:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-platform-mock.git
+        version: null
+      module: vtds_platform_mock
+      package: vtds-platform-mock
+      source_type: git
+    cluster:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-cluster-mock.git
+        version: null
+      module: vtds_cluster_mock
+      package: vtds-cluster-mock
+      source_type: git
+    application:
+      metadata:
+        url: git@github.com:Cray-HPE/vtds-application-mock.git
+        version: null
+      module: vtds_application_mock
+      package: vtds-application-mock
+      source_type: git
+  configurations:
+  - metadata: {}
+    type: command-line
+  - metadata: {}
+    type: core-config
