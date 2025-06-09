@@ -28,19 +28,6 @@ provider:
     org_id: "organizations/980209705768"
     parent: "organizations/980209705768"
     seed_project: "hpe-dev-seed"
-    security_owners:
-    - "group:csm-oss-admins@algol60.net"
-    admins:
-      all:
-      - "group:csm-oss-admins@algol60.net"
-      dev:
-      - "group:csm-oss-admins@algol60.net"
-      prod:
-      - "group:csm-oss-admins@algol60.net"
-      stage:
-      - "group:csm-oss-admins@algol60.net"
-      global:
-      - "group:csm-oss-admins@algol60.net"
     trusted_cidrs:
     - "136.162.34.1/32" # Cray interconnect VPN
   project:

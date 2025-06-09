@@ -1,0 +1,75 @@
+#
+# MIT License
+#
+# (C) Copyright 2025 Hewlett Packard Enterprise Development LP
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+provider:
+  organization:
+    # The 'name' field is a short name you can give to your
+    # orgainization (possibly an abbreviated company name or whatever
+    # you like) that will be used as a prefix when setting up storage
+    # buckets for terraform data in google storage and for naming
+    # projects. Keep it short to avoid using up too much of the
+    # available GCP name length limit when naming storage buckets and
+    # projects, and use only the characters in the set [a-z0-9-].
+    name: example
+    # The 'billing_account' field identifies the GCP account to which
+    # resources for vTDS projects will be billed. Get this from whoever
+    # manages your GCP organization.
+    billing_account: "04DAB2-3517FE-287093"
+    # The 'org_id' and 'parent' fields identify the GCP organization and
+    # parent organization in which resources will be created and
+    # referenced. Get this from whoever manages your GCP
+    # organization. It is common for them to be the same, as the
+    # organization is the top of the GCP resource hierarchy.
+    org_id: "organizations/123456789123"
+    parent: "organizations/123456789123"
+    # The 'seed_project' field names a seed project where persistent
+    # storage exists for use by Terragrunt / Terraform outside of vTDS
+    # projects. This should be a project you, or whoever manages your
+    # vTDS environment, created. It has no compute instances in it, but
+    # it contains Google Cloud Storage buckets needed for Terraform /
+    # Terragrunt.
+    seed_project: "example-dev-seed"
+    # Put any IPv4 network CIDRs that you want to allow through your
+    # vTDS project firewalls (beyond normal IAP tunneling CIDRs) into
+    # 'trusted_cidrs'. If none are provided, the only access will be
+    # through IAP tunneling.
+    trusted_cidrs: []
+  project:
+    # The 'base_name' field contains the base name (without prefix or
+    # suffix) of the GCP project (i.e. vTDS system) to be deployed. It
+    # needs to be different for each vTDS system you create, so it is
+    # typically overridden in the cor configuration. It is specified
+    # here only to make sure there is some setting for it.
+    base_name: vtds-test
+    # The 'folder_id' field contains the ID (not the name) of the GCP
+    # folder in which the GCP project will be created. A specific folder
+    # is probably required within your organization. Get this from
+    # whoever manages your organization.
+    folder_id: "525773635451"
+    # The 'group_name' field names the group within your organization
+    # that owns the GCP project that this configuration will
+    # create. This will have been set up by whoever manages your
+    # organization. This group should also have Storage Object Admin
+    # access to the organization seed project, and should be assigned to
+    # any user who will be deploying their own vTDS system.
+    group_name: vshasta2-owners
