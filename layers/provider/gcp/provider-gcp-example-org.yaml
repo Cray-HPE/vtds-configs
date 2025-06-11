@@ -34,6 +34,10 @@ provider:
     # The 'billing_account' field identifies the GCP account to which
     # resources for vTDS projects will be billed. Get this from whoever
     # manages your GCP organization.
+    #
+    # In the organization described in the GCP Provider Layer Getting
+    # Started Guide, this would be the billing account number associated
+    # with the 'gcp-billing' account.
     billing_account: "04DAB2-3517FE-287093"
     # The 'org_id' and 'parent' fields identify the GCP organization and
     # parent organization in which resources will be created and
@@ -48,7 +52,7 @@ provider:
     # vTDS environment, created. It has no compute instances in it, but
     # it contains Google Cloud Storage buckets needed for Terraform /
     # Terragrunt.
-    seed_project: "example-dev-seed"
+    seed_project: "vtds-seed"
     # Put any IPv4 network CIDRs that you want to allow through your
     # vTDS project firewalls (beyond normal IAP tunneling CIDRs) into
     # 'trusted_cidrs'. If none are provided, the only access will be
@@ -65,6 +69,10 @@ provider:
     # folder in which the GCP project will be created. A specific folder
     # is probably required within your organization. Get this from
     # whoever manages your organization.
+    #
+    # In the organization described in the GCP Provider Layer Getting
+    # Started Guide, this would be the folder identifier associated with
+    # the 'vtds-systems' folder.
     folder_id: "525773635451"
     # The 'group_name' field names the group within your organization
     # that owns the GCP project that this configuration will
@@ -72,4 +80,4 @@ provider:
     # organization. This group should also have Storage Object Admin
     # access to the organization seed project, and should be assigned to
     # any user who will be deploying their own vTDS system.
-    group_name: vshasta2-owners
+    group_name: vtds-users
