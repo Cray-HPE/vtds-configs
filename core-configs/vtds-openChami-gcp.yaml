@@ -68,11 +68,11 @@ core:
   configurations:
   - type: git
     metadata:
-      # This brings in the HPE specific settings needed to build an HPE
-      # project on GCP.
+      # This brings in your organization specific settings needed to
+      # build a project on GCP.
       repo: git@github.com:Cray-HPE/vtds-configs.git
       version: main
-      path: layers/provider/gcp/provider-gcp-hpe-org.yaml
+      path: layers/provider/gcp/provider-gcp-example-org.yaml
   - type: git
     metadata:
       # This brings in the FSM / SCS Connectivity Demo configuration
