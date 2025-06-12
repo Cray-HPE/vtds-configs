@@ -22,4 +22,14 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # Nothing here yet. Come back later for the config
-application: {}
+application:
+  discovery_networks:
+    internal:
+      network_cidr: 172.25.0.0/24
+      network_name: null
+    hardware:
+      network_cidr: null
+      network_name: hwmgtnet
+  host:
+    network: mgmtnet
+    node_class: management_node

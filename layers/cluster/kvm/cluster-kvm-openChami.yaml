@@ -24,15 +24,15 @@
 # Cluster layer for a simple Ubuntu / KVM POC vTDS
 cluster:
   networks:
-    primary_network:
-      network_name: hostnet
+    management_network:
+      network_name: mgmtnet
       tunnel_id: 10
       devices:
-        bridge: br-hostnet
-        tunnel: hostnet
+        bridge: br-mgmtnet
+        tunnel: mgmtnet
         local:
-          peer: bl-hostnet-p
-          interface: bl-hostnet
+          peer: bl-mgmtnet-p
+          interface: bl-mgmtnet
       blade_interconnect: blade-interconnect
       address_families:
         ipv4:
@@ -51,8 +51,65 @@ cluster:
             pools:
               - start: 10.1.1.10
                 end: 10.1.1.254
+    compute_network:
+      network_name: compnet
+      tunnel_id: 20
+      devices:
+        bridge: br-compnet
+        tunnel: compnet
+        local:
+          peer: bl-compnet-p
+          interface: bl-compnet
+      blade_interconnect: blade-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.2.1.0/24
+          gateway: 10.2.1.1
+          name_servers:
+            - 169.254.169.254
+          connected_blades:
+            - blade_class: host-blade
+              addresses:
+                - 10.2.1.1
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.2.1.10
+                end: 10.2.1.254
+    hardware_network:
+      network_name: hwmgtnet
+      tunnel_id: 30
+      devices:
+        bridge: br-hwmgtnet
+        tunnel: hwmgtnet
+        local:
+          peer: bl-hwmgtnet-p
+          interface: bl-hwmgtnet
+      blade_interconnect: blade-interconnect
+      address_families:
+        ipv4:
+          family: AF_INET
+          cidr: 10.3.1.0/24
+          gateway: 10.3.1.1
+          name_servers:
+            - 169.254.169.254
+          connected_blades:
+            - blade_class: host-blade
+              addresses:
+                - 10.3.1.1
+                - 10.3.1.2
+                - 10.3.1.3
+                - 10.3.1.4
+              dhcp_server_instance: 0
+          dhcp:
+            enabled: true
+            pools:
+              - start: 10.3.1.10
+                end: 10.3.1.254
   node_classes:
-    host_node:
+    management_node:
       pure_base_class: false
       parent_class: rocky_linux_node
       node_count: 1
@@ -65,8 +122,33 @@ cluster:
         mode: numbered
         base_name: ochami
       network_interfaces:
-        primary_network:
-          cluster_network: hostnet
+        management_network:
+          cluster_network: mgmtnet
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: dynamic
+        hardware_network:
+          cluster_network: hwmgtnet
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: dynamic
+    compute_node:
+      pure_base_class: false
+      parent_class: rocky_linux_node
+      node_count: 4
+      virtual_machine:
+        cpu_count: 1
+      host_blade:
+        blade_class: host-blade
+        instance_capacity: 4
+      node_naming:
+        mode: numbered
+        base_name: compute
+      network_interfaces:
+        compute_network:
+          cluster_network: compnet
           addr_info:
             ipv4:
               family: AF_INET
