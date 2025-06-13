@@ -21,7 +21,7 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-# Cluster layer for a simple Ubuntu / KVM POC vTDS
+# Cluster layer configuration for deploying OpenCHAMI on vTDS
 cluster:
   networks:
     management_network:
@@ -137,7 +137,12 @@ cluster:
     compute_node:
       pure_base_class: false
       parent_class: rocky_linux_node
-      node_count: 4
+      # No compute nodes by default. Increase this number to have
+      # compute nodes in the system. Since the host blade capacity is 4
+      # compute nodes, if you add more than 4 compute nodes, you will
+      # need to increase the number of host blades accordingly in the
+      # provider configuration.
+      node_count: 0
       virtual_machine:
         cpu_count: 1
       host_blade:

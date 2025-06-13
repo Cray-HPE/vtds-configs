@@ -116,6 +116,25 @@ provider:
     base_name: openchami
   virtual_blades:
     host-blade:
-      vm:
-        boot_disk:
-          disk_size_gb: 100
+      # A count of 1 is sufficient to build a system on a single blade
+      # with 1 management node (ochami-001) and up to four compute nodes
+      # (compute-001, compute-002, compute-003, compute-004).
+      #
+      # For more compute nodes, increase the number of blades by one for
+      # every four additional compute nodes. For additional management
+      # nodes, increase the number of blades by one for every management
+      # node (each blade has room for one management node and up to 4
+      # compute nodes).
+      count: 1
+cluster:
+  node_classes:
+    management_node:
+      # A node count of 1 creates a single management node.
+      node_count: 1
+    compute_node:
+      # A node count of 0 prevents compute nodes from being
+      # created. This is the simplest version of OpenCHAMI and will use
+      # the RIE RedFish emulator to simulate the existence of compute
+      # nodes. This can be increased to four for every virtual blade in
+      # the cluster.
+      node_count: 0

@@ -47,6 +47,8 @@ provider:
     host-blade:
       vm:
         machine_type: n1-standard-16
+        boot_disk:
+          disk_size_gb: 1000
       parent_class: base-blade
       pure_base_class: false
       blade_interconnect:
