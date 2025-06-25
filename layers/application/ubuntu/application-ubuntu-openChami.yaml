@@ -27,7 +27,7 @@ application:
     internal:
       network_cidr: 172.25.0.0/24
       network_name: null
-    hardware_managemewnt:
+    hardware_management:
       network_cidr: null
       network_name: hwmgtnet
   host:
