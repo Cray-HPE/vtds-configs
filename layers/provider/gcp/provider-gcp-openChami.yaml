@@ -64,6 +64,37 @@ provider:
         - 10.255.1.8
         - 10.255.1.9
         - 10.255.1.10
+        - 10.255.1.11
+        - 10.255.1.12
+        - 10.255.1.13
+        - 10.255.1.14
+        - 10.255.1.15
+        - 10.255.1.16
       count: 1
       name_prefix: "host-blade"
       hostname: host-blade
+      # OpenCHAMI Application metadata for the Virtual Blades
+      application_metadata:
+        # Map these xnames onto the Cluster Layer node names (which are
+        # xnames in OpenCHAMI). These should be the parent names for the
+        # Virtual Nodes that reside on the respective Virtual Blades.
+        #
+        # The agreed upon scheme here is that each blade is Blade 0 (bo)
+        # in its respective Shelf (s0 through s15).
+        xnames:
+          - x1c0s0b0
+          - x1c0s1b0
+          - x1c0s2b0
+          - x1c0s3b0
+          - x1c0s4b0
+          - x1c0s5b0
+          - x1c0s6b0
+          - x1c0s7b0
+          - x1c0s8b0
+          - x1c0s9b0
+          - x1c0s10b0
+          - x1c0s11b0
+          - x1c0s12b0
+          - x1c0s13b0
+          - x1c0s14b0
+          - x1c0s15b0

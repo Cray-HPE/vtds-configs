@@ -92,7 +92,7 @@ cluster:
         ipv4:
           family: AF_INET
           cidr: 10.3.1.0/24
-          gateway: 10.3.1.1
+          gateway: null
           name_servers:
             - 169.254.169.254
           connected_blades:
@@ -102,11 +102,23 @@ cluster:
                 - 10.3.1.2
                 - 10.3.1.3
                 - 10.3.1.4
+                - 10.3.1.5
+                - 10.3.1.6
+                - 10.3.1.7
+                - 10.3.1.8
+                - 10.3.1.9
+                - 10.3.1.10
+                - 10.3.1.11
+                - 10.3.1.12
+                - 10.3.1.13
+                - 10.3.1.14
+                - 10.3.1.15
+                - 10.3.1.16
               dhcp_server_instance: 0
           dhcp:
             enabled: true
             pools:
-              - start: 10.3.1.10
+              - start: 10.3.1.16
                 end: 10.3.1.254
   node_classes:
     management_node:
@@ -120,23 +132,13 @@ cluster:
         instance_capacity: 1
       node_naming:
         base_name: management
+        # In this configuration, there is one management node and it
+        # lives on the same node as the first 4 compute nodes. Because
+        # of this, the cabinet (x), chassis (c), shelf (s), and
+        # blade (b) numbers need to match those of the compute nodes
+        # and it will show up as the first node on the blade (n0)
         node_names:
           - x1c0s0b0n0
-          - x1c0s1b0n0
-          - x1c0s2b0n0
-          - x1c0s3b0n0
-          - x1c0s4b0n0
-          - x1c0s5b0n0
-          - x1c0s6b0n0
-          - x1c0s7b0n0
-          - x1c0s8b0n0
-          - x1c0s9b0n0
-          - x1c0s10b0n0
-          - x1c0s11b0n0
-          - x1c0s12b0n0
-          - x1c0s13b0n0
-          - x1c0s14b0n0
-          - x1c0s15b0n0
       host_naming:
         base_name: management
       network_interfaces:
@@ -168,23 +170,39 @@ cluster:
         instance_capacity: 4
       node_naming:
         base_name: compute
+        # On OpenCHAMI, node names are xnames because that is
+        # convenient.
+        #
+        # The xnames for the first 4 compute nodes are offset by one
+        # from the normal pattern to acommodate the management node that
+        # is co-resident on the same blade with those compute
+        # nodes. After that, each group of 4 compute nodes (n0 through
+        # n3) lives on a blade (b0) in its own shelf (s1 through
+        # s15). Currently only the first 16 compute nodes are reflected
+        # here. Follow the pattern to extened this up to 64 nodes if
+        # desired.
+        #
+        # This needs to be coordinated with the application metadata in
+        # the provider layer config to make sure Blade xnames match up
+        # with node xnames. Blade xnames are currently defined there up
+        # to 16 blades (support for 64 nodes)
         node_names:
-          - x1c0s0b1n0
-          - x1c0s0b1n1
-          - x1c0s0b1n2
-          - x1c0s0b1n3
-          - x1c0s1b1n0
-          - x1c0s1b1n1
-          - x1c0s1b1n2
-          - x1c0s1b1n3
-          - x1c0s2b1n0
-          - x1c0s2b1n1
-          - x1c0s2b1n2
-          - x1c0s2b1n3
-          - x1c0s3b1n0
-          - x1c0s3b1n1
-          - x1c0s3b1n2
-          - x1c0s3b1n3
+          - x1c0s0b0n1
+          - x1c0s0b0n2
+          - x1c0s0b0n3
+          - x1c0s0b0n4
+          - x1c0s1b0n0
+          - x1c0s1b0n1
+          - x1c0s1b0n2
+          - x1c0s1b0n3
+          - x1c0s2b0n0
+          - x1c0s2b0n1
+          - x1c0s2b0n2
+          - x1c0s2b0n3
+          - x1c0s3b0n0
+          - x1c0s3b0n1
+          - x1c0s3b0n2
+          - x1c0s3b0n3
       host_naming:
         base_name: compute
       network_interfaces:
