@@ -212,3 +212,9 @@ cluster:
             ipv4:
               family: AF_INET
               mode: dynamic
+        management_network:
+          cluster_network: mgmtnet
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: dynamic
