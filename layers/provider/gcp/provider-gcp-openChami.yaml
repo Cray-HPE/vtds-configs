@@ -43,7 +43,11 @@ provider:
         of blade interconnect inheritance.
       routes: []
   virtual_blades:
-    # Test basic inheritance
+    # Host blade. This is normally the host blade class for both Management
+    # and Compute nodes. By doing it this way, we can create a vTDS with
+    # a management node and up to 4 compute nodes on a single GCP
+    # instance, thereby keeping costs down for small development and
+    # test systems.
     host-blade:
       vm:
         machine_type: n1-standard-16
@@ -82,19 +86,93 @@ provider:
         # The agreed upon scheme here is that each blade is Blade 0 (bo)
         # in its respective Shelf (s0 through s15).
         xnames:
-          - x1c0s0b0
-          - x1c0s1b0
-          - x1c0s2b0
-          - x1c0s3b0
-          - x1c0s4b0
-          - x1c0s5b0
-          - x1c0s6b0
-          - x1c0s7b0
-          - x1c0s8b0
-          - x1c0s9b0
-          - x1c0s10b0
-          - x1c0s11b0
-          - x1c0s12b0
-          - x1c0s13b0
-          - x1c0s14b0
-          - x1c0s15b0
+          - x2000c0s0b0
+          - x2000c0s1b0
+          - x2000c0s2b0
+          - x2000c0s3b0
+          - x2000c0s4b0
+          - x2000c0s5b0
+          - x2000c0s6b0
+          - x2000c0s7b0
+          - x2000c0s8b0
+          - x2000c0s9b0
+          - x2000c0s10b0
+          - x2000c0s11b0
+          - x2000c0s12b0
+          - x2000c0s13b0
+          - x2000c0s14b0
+          - x2000c0s15b0
+    # Compute blade. This is an alternative blade class that can host
+    # Compute nodes. Using Compute Blades for systems with more than 4
+    # compute nodes allows the Managment node to live on a different
+    # set of blades from the Compute nodes and allows up to 16 Compute
+    # nodes to be configured into the vTDS cluster. To use Compute
+    # blades for Compute nodes, set the host blade blade class to
+    # 'compute-blade' instead of 'host-blade' in the cluster
+    # configuration of your configuration overlay and set the number of
+    # compute blade instances to whatever is appropriate for your
+    # cluster in the platform configuration, something like:
+    #
+    # provider:
+    #   virtual_blades:
+    #     compute-blade:
+    #       count: 1
+    # cluster:
+    #   node_classes:
+    #     compute_node:
+    #       host_blade:
+    #         blade_class: compute-blade
+    compute-blade:
+      vm:
+        machine_type: n1-standard-16
+        boot_disk:
+          disk_size_gb: 1000
+      parent_class: base-blade
+      pure_base_class: false
+      blade_interconnect:
+        subnetwork: "blade-interconnect"
+        ip_addrs:
+        - 10.255.1.1
+        - 10.255.1.2
+        - 10.255.1.3
+        - 10.255.1.4
+        - 10.255.1.5
+        - 10.255.1.6
+        - 10.255.1.7
+        - 10.255.1.8
+        - 10.255.1.9
+        - 10.255.1.10
+        - 10.255.1.11
+        - 10.255.1.12
+        - 10.255.1.13
+        - 10.255.1.14
+        - 10.255.1.15
+        - 10.255.1.16
+      count: 0
+      name_prefix: "compute-blade"
+      hostname: compute-blade
+      # OpenCHAMI Application metadata for the Virtual Blades
+      application_metadata:
+        # Map these xnames onto the Cluster Layer node names (which are
+        # xnames in OpenCHAMI). These should be the parent names for the
+        # Virtual Nodes that reside on the respective Virtual Blades.
+        #
+        # The agreed upon scheme here is that each blade is Blade 0 (bo)
+        # in its respective Shelf (s0 through s15).
+        xnames:
+          - x2c0s0b0
+          - x2c0s1b0
+          - x2c0s2b0
+          - x2c0s3b0
+          - x2c0s4b0
+          - x2c0s5b0
+          - x2c0s6b0
+          - x2c0s7b0
+          - x2c0s8b0
+          - x2c0s9b0
+          - x2c0s10b0
+          - x2c0s11b0
+          - x2c0s12b0
+          - x2c0s13b0
+          - x2c0s14b0
+          - x2c0s15b0
