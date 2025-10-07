@@ -215,10 +215,10 @@ cluster:
         # with node xnames. Blade xnames are currently defined there up
         # to 16 blades (support for 64 nodes)
         node_names:
+          - x2000c0s0b0n0
           - x2000c0s0b0n1
           - x2000c0s0b0n2
           - x2000c0s0b0n3
-          - x2000c0s0b0n4
           - x2000c0s1b0n0
           - x2000c0s1b0n1
           - x2000c0s1b0n2
