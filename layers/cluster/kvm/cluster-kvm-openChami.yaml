@@ -184,7 +184,7 @@ cluster:
         node_role: management
     compute_node:
       pure_base_class: false
-      parent_class: rocky_linux_node
+      parent_class: rocky_net_boot
       # No compute nodes by default. Increase this number to have
       # compute nodes in the system. Since the host blade capacity is 4
       # compute nodes, if you add more than 4 compute nodes, you will
@@ -193,6 +193,9 @@ cluster:
       node_count: 0
       virtual_machine:
         cpu_count: 1
+        boot_info:
+          interfaces:
+            - management_network
       host_blade:
         blade_class: host-blade
         instance_capacity: 4
