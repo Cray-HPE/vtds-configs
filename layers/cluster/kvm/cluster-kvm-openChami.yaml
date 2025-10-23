@@ -80,10 +80,19 @@ cluster:
                 - 10.2.1.1
               dhcp_server_instance: 0
           dhcp:
-            enabled: true
+            enabled: false
             pools:
               - start: 10.2.1.32
                 end: 10.2.1.254
+      application_metadata:
+        # For now, define a single pool for CoreDHCP to use in its
+        # config. We can revisit this later. We can also revisit whether
+        # we want an API into Virtual Networks for getting DHCP
+        # configuration from the network, which would be a bit cleaner.
+        coredhcp:
+          pool:
+            start: 10.2.1.32
+            end: 10.2.1.254
     hardware_network:
       network_name: hwmgtnet
       tunnel_id: 30
@@ -138,10 +147,11 @@ cluster:
       node_naming:
         base_name: management
         # In this configuration, there is one management node and it
-        # lives on the same node as the first 4 compute nodes. Because
-        # of this, the cabinet (x), chassis (c), shelf (s), and
-        # blade (b) numbers need to match those of the compute nodes
-        # and it will show up as the first node on the blade (n0)
+        # lives on the same node as the first 4 compute nodes, but we
+        # don't manage it, so it is given a distinct xname in cabinet 1
+        # which does not contain any managed nodes. This is a bit of a
+        # hack, but it keeps it out of the way and makes it unlikely to
+        # be accidentally power cycled.
         node_names:
           - x1c0s0b0n0
       host_naming:
@@ -162,6 +172,21 @@ cluster:
                 - 10.1.1.7
                 - 10.1.1.8
                 - 10.1.1.9
+        compute_network:
+          cluster_network: compnet
+          addr_info:
+            ipv4:
+              family: AF_INET
+              mode: static
+              addresses:
+                - 10.2.1.2
+                - 10.2.1.3
+                - 10.2.1.4
+                - 10.2.1.5
+                - 10.2.1.6
+                - 10.2.1.7
+                - 10.2.1.8
+                - 10.2.1.9
         hardware_network:
           cluster_network: hwmgtnet
           addr_info:
@@ -182,6 +207,8 @@ cluster:
         # be included in discovery data and assigned NIDs. Management
         # nodes will not.
         node_role: management
+        # Specify which network is the cluster network for this node
+        cluster_net_interface: compnet
     compute_node:
       pure_base_class: false
       parent_class: rocky_net_boot
@@ -195,7 +222,7 @@ cluster:
         cpu_count: 1
         boot_info:
           interfaces:
-            - management_network
+            - compute_network
       host_blade:
         blade_class: host-blade
         instance_capacity: 4
@@ -216,24 +243,25 @@ cluster:
         # This needs to be coordinated with the application metadata in
         # the provider layer config to make sure Blade xnames match up
         # with node xnames. Blade xnames are currently defined there up
-        # to 16 blades (support for 64 nodes)
+        # to 16 blades (support for 64 nodes). Currently defined 16
+        # compute nodes (four per blade 'n0' through 'n3').
         node_names:
           - x2000c0s0b0n0
           - x2000c0s0b0n1
           - x2000c0s0b0n2
           - x2000c0s0b0n3
-          - x2000c0s1b0n0
-          - x2000c0s1b0n1
-          - x2000c0s1b0n2
-          - x2000c0s1b0n3
-          - x2000c0s2b0n0
-          - x2000c0s2b0n1
-          - x2000c0s2b0n2
-          - x2000c0s2b0n3
-          - x2000c0s3b0n0
-          - x2000c0s3b0n1
-          - x2000c0s3b0n2
-          - x2000c0s3b0n3
+          - x2000c0s0b1n0
+          - x2000c0s0b1n1
+          - x2000c0s0b1n2
+          - x2000c0s0b1n3
+          - x2000c0s0b2n0
+          - x2000c0s0b2n1
+          - x2000c0s0b2n2
+          - x2000c0s0b2n3
+          - x2000c0s0b3n0
+          - x2000c0s0b3n1
+          - x2000c0s0b3n2
+          - x2000c0s0b3n3
       host_naming:
         base_name: compute
       network_interfaces:
@@ -260,29 +288,6 @@ cluster:
                 - 10.2.1.45
                 - 10.2.1.46
                 - 10.2.1.47
-        management_network:
-          cluster_network: mgmtnet
-          addr_info:
-            ipv4:
-              family: AF_INET
-              mode: reserved
-              addresses:
-                - 10.1.1.32
-                - 10.1.1.33
-                - 10.1.1.34
-                - 10.1.1.35
-                - 10.1.1.36
-                - 10.1.1.37
-                - 10.1.1.38
-                - 10.1.1.39
-                - 10.1.1.40
-                - 10.1.1.41
-                - 10.1.1.42
-                - 10.1.1.43
-                - 10.1.1.44
-                - 10.1.1.45
-                - 10.1.1.46
-                - 10.1.1.47
       application_metadata:
         # node_role is either management or managed. Managed nodes will
         # be included in discovery data and assigned NIDs. Management
@@ -292,3 +297,5 @@ cluster:
         # that the nodes in this class belong to. Used in generating
         # static discovery data.
         node_group: compute
+        # Which network is the cluster network for this node
+        cluster_net_interface: compnet

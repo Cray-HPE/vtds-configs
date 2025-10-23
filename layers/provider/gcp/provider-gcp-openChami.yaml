@@ -83,25 +83,25 @@ provider:
         # xnames in OpenCHAMI). These should be the parent names for the
         # Virtual Nodes that reside on the respective Virtual Blades.
         #
-        # The agreed upon scheme here is that each blade is Blade 0 (bo)
-        # in its respective Shelf (s0 through s15).
+        # The agreed upon scheme here is that blades are 0 through 3
+        # in their respective Shelves..
         xnames:
           - x2000c0s0b0
+          - x2000c0s0b1
+          - x2000c0s0b2
+          - x2000c0s0b3
           - x2000c0s1b0
+          - x2000c0s1b1
+          - x2000c0s1b2
+          - x2000c0s1b3
           - x2000c0s2b0
+          - x2000c0s2b1
+          - x2000c0s2b2
+          - x2000c0s2b3
           - x2000c0s3b0
-          - x2000c0s4b0
-          - x2000c0s5b0
-          - x2000c0s6b0
-          - x2000c0s7b0
-          - x2000c0s8b0
-          - x2000c0s9b0
-          - x2000c0s10b0
-          - x2000c0s11b0
-          - x2000c0s12b0
-          - x2000c0s13b0
-          - x2000c0s14b0
-          - x2000c0s15b0
+          - x2000c0s3b1
+          - x2000c0s3b2
+          - x2000c0s3b3
     # Compute blade. This is an alternative blade class that can host
     # Compute nodes. Using Compute Blades for systems with more than 4
     # compute nodes allows the Managment node to live on a different
@@ -157,22 +157,22 @@ provider:
         # xnames in OpenCHAMI). These should be the parent names for the
         # Virtual Nodes that reside on the respective Virtual Blades.
         #
-        # The agreed upon scheme here is that each blade is Blade 0 (bo)
-        # in its respective Shelf (s0 through s15).
+        # The agreed upon scheme here is that blades are 0 through 3 and
+        # in their respective shelves.
         xnames:
-          - x2c0s0b0
-          - x2c0s1b0
-          - x2c0s2b0
-          - x2c0s3b0
-          - x2c0s4b0
-          - x2c0s5b0
-          - x2c0s6b0
-          - x2c0s7b0
-          - x2c0s8b0
-          - x2c0s9b0
-          - x2c0s10b0
-          - x2c0s11b0
-          - x2c0s12b0
-          - x2c0s13b0
-          - x2c0s14b0
-          - x2c0s15b0
+          - x4000c0s0b0
+          - x4000c0s0b1
+          - x4000c0s0b2
+          - x4000c0s0b3
+          - x4000c0s1b0
+          - x4000c0s1b1
+          - x4000c0s1b2
+          - x4000c0s1b3
+          - x4000c0s2b0
+          - x4000c0s2b1
+          - x4000c0s2b2
+          - x4000c0s2b3
+          - x4000c0s3b0
+          - x4000c0s3b1
+          - x4000c0s3b2
+          - x4000c0s3b3
