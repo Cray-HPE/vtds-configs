@@ -131,10 +131,18 @@ cluster:
     management_node:
       # A node count of 1 creates a single management node.
       node_count: 1
+      # These virtual machine settings make a management node that is
+      # not very big and can handle running OpenCHAMI without issues.
+      virtual_machine:
+        cpu_count: 4
+        memory_size_mib: 8192
     compute_node:
-      # A node count of 0 prevents compute nodes from being
-      # created. This is the simplest version of OpenCHAMI and will use
-      # the RIE RedFish emulator to simulate the existence of compute
-      # nodes. This can be increased to four for every virtual blade in
-      # the cluster.
-      node_count: 0
+      # A node count of 4 creates 4 virtual compute nodes running on the
+      # same Virtual Blade (GCP instance) as the management node, which
+      # provides a good minimal environment for an end-to end test of
+      # creating, booting, initializing, and power managing compute
+      # nodes. Larger node counts require more Virtual Blades.
+      node_count: 4
+application:
+  deployment:
+    mode: quadlet
