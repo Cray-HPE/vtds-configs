@@ -20,8 +20,6 @@
 # OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
-#
-# Nothing here yet. Come back later for the config
 application:
   discovery_networks:
     internal:
@@ -31,5 +29,5 @@ application:
       network_cidr: null
       network_name: hwmgtnet
   host:
-    network: mgmtnet
+    network: compnet
     node_class: management_node

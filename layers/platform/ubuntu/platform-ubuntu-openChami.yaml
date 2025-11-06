@@ -22,4 +22,27 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # Platform layer configuration for the FSM to SCP connectivity demo
-platform: {}
+platform:
+  packages:
+    openchami_dns_support:
+      # We use dnsMasq running on the blades (at least the blade hosting
+      # the head node) to serve the FQDN of the head-node and to forward
+      # external lookups to the GCP metadata / DNS server. It will be
+      # enabled once it is configured on the blades where it is running.
+      blade_classes: null
+      packages:
+        - dnsmasq
+      preconfig_settings: []
+      services_enable: []
+      services_disable:
+        - dnsmasq
+    nat_support:
+      # The blades need to run NAT to support forwarding outside the
+      # cluster. The nftables packages gives us the ability to manage
+      # that.
+      blade_classes: null
+      packages:
+        - nftables
+      preconfig_settings: []
+      services_enable: []
+      services_disable: []
